@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>TASA @ Berkeley Admin Page</title>
+</head>
+<body>
+{% if session.logged_in %}
+      <form action="{{ url_for('add_event') }}" method=post class=add-event>
+          <dl>
+            <dt>Link:
+            <dd><input type=text size=50 name=link>
+            <dd><input type=submit value=AddEvent>
+          </dl>
+      </form>
+{% endif %}
+<h2>All Events in DB:</h2>
+  <ul>
+  {% for event in events %}
+    <li><h4>{{ event.title }}</h4></li>
+  {% endfor %}
+
+  </ul>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="description" content="The Taiwanese American Student Association (TASA) at the University of California, Berkeley is dedicated to promoting the unity and cooperation of Taiwanese-Americans in the community, the presence of the Taiwanese American community in local and national arenas, and the culture and identity of Taiwanese-Americans." />
+  <meta name="keywords" content="TASA, berkeley tasa, taiwanese american student association, taiwanese student association, berkeley taiwanese, berkeley taiwanese student, berkeley taiwanese student association, berkeley taiwanese american student association, uc berkeley tasa" />
+  <meta name="author" content="Brian Sang" />
+  <meta name="copyright" content="2015 - TASA - Brian Sang" />
+  <!-- Many thanks to the web designer of the original 2012 TASA website, Rosette Su. A lot of the elements you used inspired me for
+  my design. -Brian -->
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>TASA @ Berkeley</title>
+
+  <link rel="icon" type="image/ico" href="http://tasa.berkeley.edu/images/assets/favicon.ico"/>
+  <!-- Bootstrap -->
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Yantramanav:300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+  <!-- Tasa custom CSS -->
+  <link href="{{ url_for('static', filename='css/tasa.css') }}" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+    <body>
+      <!--#include virtual="navbar.html"-->
+
+      <div id="slide1" class="eventSplash darken-event noselect">
+        <h1 class="head-title">
+          Events
+        </h1>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row row-fluid row-pad event">
+          <div class="col-md-10 col-pad">
+            <h2>Upcoming Events</h2>
+          </div>
+        </div>
+        {% for event in upcoming %}
+          {% if loop.first %}
+          <div class="row row-fluid row-pad event">
+          {% elif loop.index0 % 3 == 0 and not loop.first %}
+          </div>
+          <div class="row row-fluid row-pad event">
+          {% endif %}
+          <div class="col-md-4 col-pad">
+              <img src="{{ event.image_url }}" class="event-images"/>
+              <h3 class="event-subheader">What</h3>
+              <p class="event-text">{{ event.title|safe }}</p>
+              <h3 class="event-subheader">When</h3>
+              <p class="event-text">{{ event.time }}</p>
+              <p class="text-right"><br><a href="{{ event.link }}" target="_blank">More Info</a></p>
+          </div>
+          {% if loop.last %}
+          </div>
+          {% endif %}
+        {% endfor %}
+        <div class="row row-fluid row-pad event">
+          <div class="col-md-10 col-pad">
+            <h2>Recent Events</h2>
+          </div>
+        </div>
+        {% for event in recent %}
+          {% if loop.first %}
+          <div class="row row-fluid row-pad event">
+          {% elif loop.index0 % 3 == 0 and not loop.first %}
+          </div>
+          <div class="row row-fluid row-pad event">
+          {% endif %}
+          <div class="col-md-4 col-pad">
+              <img src="{{ event.image_url }}" class="event-images"/>
+              <h3 class="event-subheader">What</h3>
+              <p class="event-text">{{ event.title|safe }}</p>
+              <h3 class="event-subheader">When</h3>
+              <p class="event-text">{{ event.time }}</p>
+              <p class="text-right"><br><a href="{{ event.link }}" target="_blank">More Info</a></p>
+          </div>
+          {% if loop.last %}
+          </div>
+          {% endif %}
+        {% endfor %}
+
+    <div class="row row-fluid event">
+      <div class="col-md-12 col-pad">
+      <h2>Past Events (on old site)</h2>
+      </div>
+    </div>
+
+    <div class="row row-fluid event">
+      <div class="col-md-12 col-pad">
+        <a href="http://tasa.berkeley.edu/old_site/events_fall_2014.html" class="fall14event">
+        <div class="fall14event"> 
+          <h1 class="pastevents-title noselect">Fall 2014</h1>
+      </div>
+      </a>
+    </div>
+  </div>
+  <div class="row row-fluid event">
+    <div class="col-md-12 col-pad">
+      <a href="http://tasa.berkeley.edu/old_site/events_spring_2014.html" class="spring14event">
+      <div class="spring14event">
+        <h1 class="pastevents-title noselect">Spring 2014</h1>
+      </div>
+    </a>
+      </div>
+    </div>
+</div>
+
+
+
+
+<!--#include virtual="footer.html"-->
+
+              <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
+            <script type="text/javascript">
+              if(!(/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i).test(navigator.userAgent || navigator.vendor || window.opera)){
+                  skrollr.init({
+                    forceHeight: false,
+                    smoothScrolling: true,
+                    smoothScrollingDuration: 200,
+                  });
+                }
+            </script>
+          </body>
+          </html>
