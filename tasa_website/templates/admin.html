@@ -12,11 +12,38 @@
             <dd><input type=submit value=AddEvent>
           </dl>
       </form>
+      <br><br>
+      <form action="{{ url_for('add_officer') }}" method=post>
+        <dl>
+        <dt>Name:
+        <dd><input type=text size=40 name=name>
+        <dt>Year:
+        <dd><input type=text size=2 name=year>
+        <dt>Major:
+        <dd><input type=text size=40 name=major>
+        <dt>Position:
+        <dd><input type=text size=40 name=position>
+        <dt>Quote:
+        <dd><input type=text size=100 name=quote>
+        <dt>Description:
+        <dd><input type=text size=700 name=description>
+        <dt>Image URL:
+        <dd><input type=text size=70 name=imageurl>
+        <dd><input type=submit value=AddOfficer>
+        </dl>
+      </form>
 {% endif %}
 <h2>All Events in DB:</h2>
   <ul>
   {% for event in events %}
     <li><h4>{{ event.title }}</h4></li>
+  {% endfor %}
+
+  </ul>
+<h2>All Officers in DB:</h2>
+  <ul>
+  {% for officer in officers %}
+    <li><h4>{{ officer.name }}</h4></li>
   {% endfor %}
 
   </ul>

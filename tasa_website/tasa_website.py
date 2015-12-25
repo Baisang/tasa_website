@@ -76,6 +76,7 @@ def add_event():
         title = res['name']
         location = res['place']['name']
         time_str = res['start_time']
+        # turns the ISO-8601 format time given to us into epoch time and a formatted string
         date_time = dateutil.parser.parse(time_str)
         time_str = date_time.strftime("%A %B %d %I:%M%p")
         unix_time = int(time.mktime(date_time.timetuple()) + date_time.microsecond/1000000.0)
@@ -120,7 +121,8 @@ def admin_panel():
     if not session.get('logged_in'):
         abort(401)
     events = query_db('select title from events order by unix_time desc')
-    return render_template('admin.html', events=events)
+    officers = query_db('select name from officers order by id')
+    return render_template('admin.html', events=events, officers=officers)
 
 @app.route('/events', methods=['GET'])
 def event_list():
@@ -138,6 +140,34 @@ def event_list():
         else:
             recent.append(event)
     return render_template('events.html', recent=recent, upcoming=upcoming)
+
+@app.route('/officers', methods=['GET'])
+def officer_list():
+    query = 'select * from officers order by id'
+    officers = query_db(query)
+    return render_template('officers.html', officers=officers)
+
+@app.route('/add_officer', methods=['POST'])
+def add_officer():
+    # make sure to add officers by dec. position since they are ordered
+    # by id
+    if not session.get('logged_in'):
+        abort(401)
+    name = request.form['name']
+    year = request.form['year']
+    major = request.form['major']
+    position = request.form['position']
+    quote = request.form['quote']
+    description = request.form['description']
+    image_url = request.form['imageurl']
+    href = '#' + request.form['name']
+
+    query = 'insert into officers (name, year, major, quote, description, image_url, position, href)'\
+            'values (?, ?, ?, ?, ?, ?, ?, ?)'
+    g.db.execute(query, [name, year, major, quote, description, image_url, position, href])
+    g.db.commit()
+    return redirect(url_for('admin_panel'))
+    
 
 if __name__ == '__main__':
     app.run()

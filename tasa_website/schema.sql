@@ -18,5 +18,6 @@ create table officers (
 	quote text not null,
 	description text not null,
 	image_url text not null,
-	position text not null
+	position text not null,
+	href text not null
 );

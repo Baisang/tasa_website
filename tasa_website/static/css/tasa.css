@@ -314,7 +314,8 @@ body {
 		color: white;
 		position: static;
 		padding-left: 1em;
-		padding-top: 4.5em;
+		padding-top: 4.25em;
+		padding-bottom: .25em;
 		text-shadow: 1px 1px 10px #000000;
 	}
 }
