@@ -92,7 +92,7 @@ def add_event():
         g.db.commit()
         flash('New event was successfully posted')
         return redirect(url_for('admin_panel'))
-    except e:
+    except Exception as e:
         print str(e)
         return redirect(url_for('admin_panel'))
 
@@ -167,7 +167,23 @@ def add_officer():
     g.db.execute(query, [name, year, major, quote, description, image_url, position, href])
     g.db.commit()
     return redirect(url_for('admin_panel'))
-    
+
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
+
+@app.route('/families', methods=['GET'])
+def families():
+    return render_template('families.html')
+
+@app.route('/files', methods=['GET'])
+def files():
+    return render_template('files.html')
+
+@app.route('/donate', methods=['GET'])
+def donate():
+    return render_template('donate.html')
+
 
 if __name__ == '__main__':
     app.run()

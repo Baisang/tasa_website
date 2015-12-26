@@ -7,7 +7,7 @@
     </div>
     <div id="nav" class="container-fluid">
         <div class="row row-fluid row-pad officer">
-        {% if officers|length > 23 %}
+        {% if officers|length < 23 %}
         	<div class="col-md-1 col-pad"></div>
         {% endif %}
         {% for officer in officers %}
@@ -21,7 +21,7 @@
         	{% elif loop.index0 in [2, 6, 10, 14, 22, 30] %}
         		<a href="{{ officer.href }}"><p class="event-text">{{ officer.name }}</p></a>
         		</div>
-        	{% elif loop.index0 in [8, 12, 13, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29]}
+        	{% elif loop.index0 in [8, 12, 13, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29] %}
         		<a href="{{ officer.href }}"><p class="event-text">{{ officer.name }}</p></a>
         	{% endif %}
         {% endfor %}
@@ -31,4 +31,32 @@
     {% for officer in officers %}
     	{% if loop.first %}
     	<div class="row row-fluid officer row-pad">
-            <div class="col-md-12 col-pad">
+    	<div class="col-md-1"></div>
+            <div class="col-md-10 col-pad">
+            <img src="{{ officer.image_url }}" class="mobile-height officer-img" id="{{ officer.name }}"/>
+            <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} {{ officer.year }}</h3>
+            <div class="quote-president officer-pad">{{ officer.quote }}</div>
+            <p class="text-justify officer-desc-president officer-pad">{{ officer.description }}</p>
+            </div>
+        </div>
+        {% elif (loop.index0 - 1) % 2 == 0 %}
+        <div class="row row-fluid officer row-pad">
+        	<div class="col-md-1"></div>
+        	<div class="col-md-5 col-pad">
+            <img src="{{ officer.image_url }}" class="mobile-height officer-img" id="{{ officer.name }}"/>
+            <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} {{ officer.year }}</h3>
+            <div class="quote officer-pad">{{ officer.quote }}</div>
+            <p class="text-justify officer-desc officer-pad">{{ officer.description }}</p>
+            </div>
+        {% elif (loop.index0 - 1) % 2 == 1 %}
+        	<div class="col-md-5 col-pad">
+            <img src="{{ officer.image_url }}" class="mobile-height officer-img" id="{{ officer.name }}"/>
+            <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} {{ officer.year }}</h3>
+            <div class="quote officer-pad">{{ officer.quote }}</div>
+            <p class="text-justify officer-desc officer-pad">{{ officer.description }}</p>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    {% endblock %}
