@@ -13,7 +13,6 @@ from datetime import datetime, date
 # configuration
 DATABASE = '/tmp/tasa_website.db'
 DEBUG = False
-SER
 SECRET_KEY = os.environ['TASA_SECRET']
 USERNAME = os.environ['TASA_USERNAME']
 PASSWORD = os.environ['TASA_PASSWORD']
