@@ -11,7 +11,7 @@ from contextlib import closing
 from datetime import datetime, date
 
 # configuration
-DATABASE = '/tmp/tasa_website.db'           
+DATABASE = 'tasa_website.db'           
 DEBUG = True
 SECRET_KEY = os.environ['TASA_SECRET']
 USERNAME = os.environ['TASA_USERNAME']
