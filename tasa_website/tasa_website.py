@@ -12,7 +12,8 @@ from datetime import datetime, date
 
 # configuration
 DATABASE = '/tmp/tasa_website.db'
-DEBUG = True
+DEBUG = False
+SER
 SECRET_KEY = os.environ['TASA_SECRET']
 USERNAME = os.environ['TASA_USERNAME']
 PASSWORD = os.environ['TASA_PASSWORD']
@@ -186,4 +187,4 @@ def donate():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=80)
