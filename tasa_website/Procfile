@@ -1,0 +1,1 @@
+web: gunicorn tasa_website:app --log-file=-
