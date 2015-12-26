@@ -11,7 +11,7 @@ from contextlib import closing
 from datetime import datetime, date
 
 # configuration
-DATABASE = '/tmp/tasa_website.db'
+DATABASE = '/tmp/tasa_website.db'           
 DEBUG = True
 SECRET_KEY = os.environ['TASA_SECRET']
 USERNAME = os.environ['TASA_USERNAME']
@@ -73,6 +73,7 @@ def add_event():
         fb_api_base += fb_event_id
         payload = {"access_token": FACEBOOK_KEY}
         res = requests.get(fb_api_base, params=payload).json()
+        print res
         title = res['name']
         location = res['place']['name']
         time_str = res['start_time']
