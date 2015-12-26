@@ -24,14 +24,14 @@ body {
 
 .secondSplash {
 	background-image: 
-	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("../images/secondSplash.jpg");
+	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("http://tasa.berkeley.edu/images/secondSplash.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.5)
 		),
-	url("../images/secondSplash.jpg");
+	url("http://tasa.berkeley.edu/images/secondSplash.jpg");
 	font-family: 'Yantramanav', sans-serif;
 	background-position: 47% 35%;
 	display: block;
@@ -41,14 +41,14 @@ body {
 
 .thirdSplash {
 	background-image: 
-	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("../images/fall14cabinet.jpg");
+	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("http://tasa.berkeley.edu/images/fall14cabinet.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/fall14cabinet.jpg");
+	url("http://tasa.berkeley.edu/images/fall14cabinet.jpg");
 	font-family: 'Yantramanav', sans-serif;
 	-webkit-background-position: 47% 35%;
 	background-position: 47% 35%;
@@ -87,14 +87,14 @@ body {
 
 .splash {
 		background-image: 
-		-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/lowresSplash.jpg");
+		-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("http://tasa.berkeley.edu/images/lowresSplash.jpg");
 		background-image: 
 		linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-		url("../images/lowresSplash.jpg");
+		url("http://tasa.berkeley.edu/images/lowresSplash.jpg");
 		background-size: 100% auto;
   		background-attachment: fixed;
 }
@@ -376,14 +376,14 @@ body {
 
 .about-splash {
 	background-image: 
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url("../images/about.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url("http://tasa.berkeley.edu/images/about.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.1)
 		),
-	url("../images/about.jpg");
+	url("http://tasa.berkeley.edu/images/about.jpg");
 	height: 33em;
 	background-size: cover;
 	width: 100%;
@@ -395,14 +395,14 @@ body {
 
 .family-splash {
 	background-image: 
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4)), url("../images/families.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4)), url("http://tasa.berkeley.edu/images/families.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.4)
 		),
-	url("../images/families.jpg");
+	url("http://tasa.berkeley.edu/images/families.jpg");
 	height: 33em;
 	margin-top: -1.2em;
 	background-size: cover;
@@ -422,7 +422,7 @@ body {
 }
 
 .eventSplash {
-	background-image: url("../images/events.jpg");
+	background-image: url("http://tasa.berkeley.edu/images/events.jpg");
 	font-family: 'Yantramanav', sans-serif;
 	display: block;
 	background-position: 0% 30%;
@@ -434,14 +434,14 @@ body {
 
 .darken-event {
 	background-image: 
-	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("../images/events.jpg");
+	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("http://tasa.berkeley.edu/images/events.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.3)
 		),
-	url("../images/events.jpg");
+	url("http://tasa.berkeley.edu/images/events.jpg");
 }
 
 
@@ -464,14 +464,14 @@ body {
 	font-family: 'Yantramanav', sans-serif;
 	display: block;
 	background-image: 
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("../images/fall14events.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("http://tasa.berkeley.edu/images/fall14events.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.3)
 		),
-	url("../images/fall14events.jpg");
+	url("http://tasa.berkeley.edu/images/fall14events.jpg");
 }
 
 a.fall14event:hover {
@@ -487,14 +487,14 @@ a.fall14event:hover {
 	font-family: 'Yantramanav', sans-serif;
 	display: block;
 	background-image: 
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("../images/spring14events.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("http://tasa.berkeley.edu/images/spring14events.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.3)
 		),
-	url("../images/spring14events.jpg");
+	url("http://tasa.berkeley.edu/images/spring14events.jpg");
 }
 
 a.spring14event:hover {
@@ -555,14 +555,14 @@ h3.event-subheader {
 	height: 33em;
 	width: 100%;
 	background-image: 
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/sp14cabinet.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("http://tasa.berkeley.edu/images/sp14cabinet.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/sp14cabinet.jpg");	
+	url("http://tasa.berkeley.edu/images/sp14cabinet.jpg");	
 }
 
 .files-splash {
@@ -573,14 +573,14 @@ h3.event-subheader {
 	height: 33em;
 	width: 100%;
 	background-image: 
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/files.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("http://tasa.berkeley.edu/images/files.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/files.jpg");	
+	url("http://tasa.berkeley.edu/images/files.jpg");	
 	margin-top: -1.2em;
 }
 
@@ -592,14 +592,14 @@ h3.event-subheader {
 	height: 33em;
 	width: 100%;
 	background-image: 
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/donate.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("http://tasa.berkeley.edu/images/donate.jpg");
 	background-image: 
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/donate.jpg");	
+	url("http://tasa.berkeley.edu/images/donate.jpg");	
 	margin-top: -1.2em;
 }
 
@@ -634,26 +634,6 @@ h3.event-subheader {
 	margin-right: 1.67em;
 	text-shadow: 1px 1px 10px #000000;
 	text-align: right;
-}
-
-.president {
-	background-image: 
-	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.25)), url("../images/annielo.jpg");
-	background-image: 
-	linear-gradient(
-		to bottom,
-		rgba(0, 0, 0, 0.0),
-		rgba(0, 0, 0, 0.25)
-		),
-	url("../images/annielo.jpg");
-	font-family: 'Yantramanav', sans-serif;
-	display: block;
-	background-size: cover;
-	height: 30em;
-	border-style: solid;
-	border-width: .4em;
-	border-color: #DDDDDD;
-}
 }
 
 .col-no-pad {
