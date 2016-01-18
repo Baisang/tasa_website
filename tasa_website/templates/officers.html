@@ -17,7 +17,7 @@
         	{% if loop.index0 in [0, 3, 7, 11, 15, 23, 1, 2, 4, 5, 9] %}
         		<h3 class="event-subheader">{{ officer.position }}</h3>
         	{% endif %}
-        		<a href="{{ officer.href }}"><p class="event-text">{{ officer.name }}</p></a>
+        		<a href="#{{ officer.id }}"><p class="event-text">{{ officer.name }}</p></a>
         	{% if loop.index0 in [2, 6, 10, 14, 22, 30] %}
         		</div>
         	{% endif %}
@@ -30,7 +30,7 @@
     	<div class="row row-fluid officer row-pad">
     	<div class="col-md-3"></div>
             <div class="col-md-6 col-pad">
-            <div class="mobile-height officer-img officer-img-pres" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.name }}"></div>
+            <div class="mobile-height officer-img officer-img-pres" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.id }}"></div>
             <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} | {{ officer.year }}</h3>
             <div class="quote-president officer-pad">{{ officer.quote }}</div>
             <p class="text-justify officer-desc-president officer-pad">{{ officer.description }}</p>
@@ -40,14 +40,14 @@
         <div class="row row-fluid officer row-pad">
         	<div class="col-md-1"></div>
         	<div class="col-md-5 col-pad">
-            <div class="mobile-height officer-img" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.name }}"></div>
+            <div class="mobile-height officer-img" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.id }}"></div>
             <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} | {{ officer.year }}</h3>
             <div class="quote officer-pad">{{ officer.quote }}</div>
             <p class="text-justify officer-desc officer-pad">{{ officer.description }}</p>
             </div>
         {% elif (loop.index0 - 1) % 2 == 1 %}
         	<div class="col-md-5 col-pad">
-            <div class="mobile-height officer-img" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.name }}"></div>
+            <div class="mobile-height officer-img" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.id }}"></div>
             <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} | {{ officer.year }}</h3>
             <div class="quote officer-pad">{{ officer.quote }}</div>
             <p class="text-justify officer-desc officer-pad">{{ officer.description }}</p>
