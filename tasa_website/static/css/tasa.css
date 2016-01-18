@@ -472,6 +472,7 @@ body {
 	.row.event {
 		max-width: 98%;
 		margin: 0 1%;
+	}
 }
 
 p.event-text {
@@ -631,7 +632,7 @@ h3.event-subheader {
 }
 
 .officer-img-pres {
-	height: 30em;
+	height: 25em;
 }
 
 @media (max-width: 767px) {
