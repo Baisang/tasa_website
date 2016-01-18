@@ -13,16 +13,13 @@
         {% for officer in officers %}
         	{% if loop.index0 in [0, 3, 7, 11, 15, 23] %}
         		<div class="col-md-2 col-pad">
+        	{% endif %}
+        	{% if loop.index0 in [0, 3, 7, 11, 15, 23, 1, 2, 4, 5, 9] %}
         		<h3 class="event-subheader">{{ officer.position }}</h3>
+        	{% endif %}
         		<a href="{{ officer.href }}"><p class="event-text">{{ officer.name }}</p></a>
-        	{% elif loop.index0 in [1, 2, 4, 5, 9] %}
-        		<h3 class="event-subheader">{{ officer.position }}</h3>
-        		<a href="{{ officer.href }}"><p class="event-text">{{ officer.name }}</p></a>
-        	{% elif loop.index0 in [6, 10, 14, 22, 30] %}
-        		<a href="{{ officer.href }}"><p class="event-text">{{ officer.name }}</p></a>
+        	{% if loop.index0 in [2, 6, 10, 14, 22, 30] %}
         		</div>
-        	{% elif loop.index0 in [8, 12, 13, 16, 17, 18, 19, 20, 21, 24, 25, 26, 27, 28, 29] %}
-        		<a href="{{ officer.href }}"><p class="event-text">{{ officer.name }}</p></a>
         	{% endif %}
         {% endfor %}
         </div>
