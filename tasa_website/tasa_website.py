@@ -73,7 +73,6 @@ def add_event():
         fb_api_base += fb_event_id
         payload = {"access_token": FACEBOOK_KEY}
         res = requests.get(fb_api_base, params=payload).json()
-        print res
         title = res['name']
         location = res['place']['name']
         time_str = res['start_time']
@@ -94,7 +93,8 @@ def add_event():
         flash('New event was successfully posted')
         return redirect(url_for('admin_panel'))
     except Exception as e:
-        print str(e)
+        with open('log', 'a') as f:
+            f.write(str(e)+'\n')
         return redirect(url_for('admin_panel'))
 
 @app.route('/login', methods=['GET', 'POST'])
