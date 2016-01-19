@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block show_latest_event %}
   	{% if event %}
-	  	<h1>Upcoming Events</h1>
+	  	<h1>Recent Events</h1>
 	  	<a href="{{ event.link }}" target="_blank">
 	  		<img class="upcoming-event" src="{{ event.image_url }}"/></a>
 	  	<p class="text-justify">
