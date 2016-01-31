@@ -11,7 +11,7 @@ from contextlib import closing
 from datetime import datetime, date
 
 # configuration
-DATABASE = 'tasa_website.db'           
+DATABASE = 'tasa_website.db'
 DEBUG = False
 
 with open('TASA_SECRET', 'r') as f_sec:
@@ -55,8 +55,11 @@ def query_db(query, args=(), one=False):
 
 @app.route('/')
 def show_latest_event():
-    event = query_db('select title, time, location, link, image_url from events order by unix_time desc', one=True)
-    return render_template('show_latest_event.html', event=event)
+    events = query_db('select title, time, location, link, image_url from events order by unix_time desc')
+    upcoming_events = events.filter(lambda e: e['unix_time'] > int(time.time()))
+    if len(upcoming_events) == 0:
+        upcoming_events.append(events[0])
+    return render_template('show_latest_event.html', event=upcoming_events[0])
 
 @app.route('/add', methods=['POST'])
 def add_event():
@@ -140,7 +143,7 @@ def event_list():
     current_time = int(time.time())
     for event in events:
         if event['unix_time'] > current_time:
-            # key thing here to remember was append vs extend, 
+            # key thing here to remember was append vs extend,
             # since event is a sqlite row obj and iterable
             upcoming.append(event)
         else:
