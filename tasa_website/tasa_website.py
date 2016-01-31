@@ -12,11 +12,16 @@ from datetime import datetime, date
 
 # configuration
 DATABASE = 'tasa_website.db'           
-DEBUG = True
-SECRET_KEY = os.environ['TASA_SECRET']
-USERNAME = os.environ['TASA_USERNAME']
-PASSWORD = os.environ['TASA_PASSWORD']
-FACEBOOK_KEY = os.environ['TASA_FACEBOOK']
+DEBUG = False
+
+with open('TASA_SECRET', 'r') as f_sec:
+    SECRET_KEY = f_sec.read().strip()
+with open('TASA_FACEBOOK', 'r') as f_face:
+    FACEBOOK_KEY = f_face.read().strip()
+with open('TASA_USERNAME', 'r') as f_user:
+    USERNAME = f_user.read().strip()
+with open('TASA_PASSWORD', 'r') as f_pw:
+    PASSWORD = f_pw.read().strip()
 
 app = Flask(__name__)
 app.config.from_object(__name__)
