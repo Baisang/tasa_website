@@ -12,7 +12,7 @@ from datetime import datetime, date
 
 # configuration
 DATABASE = 'tasa_website.db'
-DEBUG = False
+DEBUG = True#False
 
 with open('TASA_SECRET', 'r') as f_sec:
     SECRET_KEY = f_sec.read().strip()
@@ -55,10 +55,11 @@ def query_db(query, args=(), one=False):
 
 @app.route('/')
 def show_latest_event():
-    events = query_db('select title, time, location, link, image_url from events order by unix_time desc')
-    upcoming_events = events.filter(lambda e: e['unix_time'] > int(time.time()))
+    events = query_db('select title, time, location, link, image_url, unix_time from events order by unix_time desc')
+    upcoming_events = filter(lambda e: e['unix_time'] > int(time.time()), events)
     if len(upcoming_events) == 0:
         upcoming_events.append(events[0])
+    upcoming_events.sort(key=lambda e: e['unix_time'])
     return render_template('show_latest_event.html', event=upcoming_events[0])
 
 @app.route('/add', methods=['POST'])
