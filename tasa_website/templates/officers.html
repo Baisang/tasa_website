@@ -5,55 +5,39 @@
           Officers
         </div>
     </div>
-    <div id="nav" class="container-fluid">
-        <div class="row row-fluid row-pad officer">
-        {% if officers|length < 23 %}
-        	<div class="col-md-1 col-pad"></div>
-        {% endif %}
-        {% for officer in officers %}
-        	{% if loop.index0 in [0, 3, 7, 11, 15, 20] %}
-        		<div class="col-md-2 col-pad">
-        	{% endif %}
-        	{% if loop.index0 in [0, 3, 7, 11, 15, 20, 1, 2, 4, 5, 9] %}
-        		<h3 class="event-subheader">{{ officer.position }}</h3>
-        	{% endif %}
-        		<a href="#{{ officer.id }}"><p class="event-text">{{ officer.name }}</p></a>
-        	{% if loop.index0 in [2, 6, 10, 14, 19, 23, 30] %}
-        		</div>
-        	{% endif %}
-        {% endfor %}
+        <div class="container">
+             <div class="officer-member-container">
+                {% for officer in officers %}
+                <div class="officer-member" data-toggle="modal" data-target="#{{officer.id}}">
+                        <img class="officer-member-picture" src="{{ officer.image_url }}"></img>
+                        <div class="officer-member-info">
+                            <span class="name">{{ officer.name }}</span>
+                            <span class="position_name">{{ officer.position }}</span>
+                            <span class="major">{{ officer.major }}</span>
+                            <span class="year">{{ officer.year }}</span>
+                        </div>
+                    </div>           
+                {% endfor %}
+            </div>      
         </div>
-    </div>
-    <div class="container-fluid">
-    {% for officer in officers %}
-    	{% if loop.first %}
-    	<div class="row row-fluid officer row-pad">
-    	<div class="col-md-3"></div>
-            <div class="col-md-6 col-pad">
-            <div class="mobile-height officer-img officer-img-pres" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.id }}"></div>
-            <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} | {{ officer.year }}</h3>
-            <div class="quote officer-pad">{{ officer.quote }}</div>
-            <p class="text-justify officer-desc-president officer-pad">{{ officer.description }}</p>
-            </div>
-        </div>
-        {% elif (loop.index0 - 1) % 2 == 0 %}
-        <div class="row row-fluid officer row-pad">
-        	<div class="col-md-1"></div>
-        	<div class="col-md-5 col-pad">
-            <div class="mobile-height officer-img" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.id }}"></div>
-            <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} | {{ officer.year }}</h3>
-            <div class="quote officer-pad">{{ officer.quote }}</div>
-            <p class="text-justify officer-desc officer-pad">{{ officer.description }}</p>
-            </div>
-        {% elif (loop.index0 - 1) % 2 == 1 %}
-        	<div class="col-md-5 col-pad">
-            <div class="mobile-height officer-img" style="background-image: url('{{ officer.image_url }}'); background-size:cover" id="{{ officer.id }}"></div>
-            <h3 class="officer-name">{{ officer.name }} | {{ officer.position }} | {{ officer.major }} | {{ officer.year }}</h3>
-            <div class="quote officer-pad">{{ officer.quote }}</div>
-            <p class="text-justify officer-desc officer-pad">{{ officer.description }}</p>
-            </div>
-        </div>
-        {% endif %}
-    {% endfor %}
-    </div>
+            {% for officer in officers %}
+                <div id={{officer.id}} class="modal fade" role="dialog"<>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">{{officer.name}}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <img class="officer-picture-modal" src="{{ officer.image_url }}"></img>
+                                <p class="quote">{{officer.quote}}</p>
+                                <p class="officer-desc">{{officer.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+       
+
     {% endblock %}
