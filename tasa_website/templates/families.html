@@ -14,24 +14,15 @@
           </div>
         </div>
         <div class="row row-pad event">
-          <div class="col-md-6 col-pad">
-          
-            <div class="family1 mobile-height">
-              
-            </div>
-             <h2 class="officer-name">TaiBae | Winston Lin & Andrew Aikawa</h2>
-                <p class="text-justify officer-desc officer-pad">
-                  Hi everyone, and welcome to the TaiBae family. We like to have fun whether it's smashing ;) eating, lifting, or going on adventures. Come join us as we explora-dora in and out of Berkeley. TaiBae is love. TaiBae is life.</p>
+             {% for family in families %}
+                <div class="col-md-6 col-pad">
+                    <div class="family1 mobile-height" style="background-image: url({{ family.image_url }})">
+                    </div>
+                    <h2 class="officer-name">{{ family.family_name }} | {{ family.family_head1 }} & {{family.family_head2}}</h2>
+                        <p class="text-justify officer-desc officer-pad">
+                        {{ family.description}}</p>
                 </div>
-          <div class="col-md-6 col-pad">
-            <div class="family2 mobile-height">
-            </div>
-             <h2 class="officer-name">TaiOne | Katy Yuan & Alex Hong</h2>
-                <p class="text-justify officer-desc officer-pad">
-                  Come one, come all to TaiOne's family events! We're going to host a variety of activities throughout the semester, from eating at new restaurants to baking your own cookies to exploring San Francisco. Our motto is Fun, Food, and Friends, so join us if you think TaiOne is the ONE for you!</p>
-                </div>
+             {% endfor %}  
           </div>
           </div>
-        </div>
-      </div>
   {% endblock %}

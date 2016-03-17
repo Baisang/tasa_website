@@ -178,13 +178,31 @@ def add_officer():
     g.db.commit()
     return redirect(url_for('admin_panel'))
 
+@app.route('/add_family', methods=['POST'])
+def add_family():
+    if not session.get('logged_in'):
+        abort(401)
+    family_name = request.form['family_name']
+    family_head1 = request.form['family_head1']
+    family_head2 = request.form['family_head2']
+    description = request.form['description']
+    image_url = request.form['image_url']
+
+    query = 'insert into families (family_name, family_head1, family_head2, description, image_url)'\
+            'values (?, ?, ?, ?, ?)'
+    g.db.execute(query, [family_name, family_head1, family_head2, description, image_url])
+    g.db.commit()
+    return redirect(url_for('admin_panel'))
+
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
 
 @app.route('/families', methods=['GET'])
 def families():
-    return render_template('families.html')
+    query = 'select family_name, family_head1, family_head2, description, image_url from families'
+    families = query_db(query)
+    return render_template('families.html', families=families)
 
 @app.route('/files', methods=['GET'])
 def files():
