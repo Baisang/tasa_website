@@ -1,0 +1,17 @@
+'name'
+'place'
+'name'
+'name'
+[<sqlite3.Row object at 0x7f28d2fe1ad0>, <sqlite3.Row object at 0x7f28d2fe1a90>]
+[<sqlite3.Row object at 0x7f28d2fe1a70>, <sqlite3.Row object at 0x7f28d2fe1ad0>]
+[<sqlite3.Row object at 0x7f28d2fe1ad0>, <sqlite3.Row object at 0x7f28d2fe1a70>]
+[<sqlite3.Row object at 0x7f28d2fe1a70>, <sqlite3.Row object at 0x7f28d2fe1ad0>]
+[<sqlite3.Row object at 0x7f28d2fe1ad0>, <sqlite3.Row object at 0x7f28d2fe1a70>]
+[<sqlite3.Row object at 0x7f28d2fe1a70>, <sqlite3.Row object at 0x7f28d2fe1ad0>]
+[<sqlite3.Row object at 0x7f28d2fe1ad0>, <sqlite3.Row object at 0x7f28d2fe1a70>]
+[<sqlite3.Row object at 0x7f28d2fe1a70>, <sqlite3.Row object at 0x7f28d2fe1ad0>]
+[<sqlite3.Row object at 0x7f28d2fe1ad0>, <sqlite3.Row object at 0x7f28d2fe1a70>]
+<sqlite3.Row object at 0x7f53ff9e6a90>
+<sqlite3.Row object at 0x7f53ff9e6ad0>
+'cover'
+'cover'
