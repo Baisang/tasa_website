@@ -21,3 +21,13 @@ create table officers (
 	position text not null,
 	href text not null
 );
+
+drop table if exists families;
+create table families(
+    id integer primary key autoincrement,
+    family_name text not null,
+    family_head1 text not null,
+    family_head2 text not null,
+    description text not null,
+    image_url text not null
+);
