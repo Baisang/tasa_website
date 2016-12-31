@@ -1,18 +1,23 @@
-# all the imports
+import cStringIO
 import dateutil.parser
 import os
+import random
 import requests
+import string
 import sqlite3
 import time
+import urllib
 
 from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
 from contextlib import closing
 from datetime import datetime, date
+from PIL import Image
 
 # configuration
 DATABASE = 'tasa_website.db'
 DEBUG = True#False
+IMAGE_FOLDER = 'static/images/'
 
 with open('TASA_SECRET', 'r') as f_sec:
     SECRET_KEY = f_sec.read().strip()
@@ -25,6 +30,12 @@ with open('TASA_PASSWORD', 'r') as f_pw:
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+img_formats = {
+    'image/jpeg': 'JPEG',
+    'image/png': 'PNG',
+    'image/gif': 'GIF'
+}
+
 
 def connect_db():
     return sqlite3.connect(app.config['DATABASE'])
@@ -94,10 +105,24 @@ def add_event():
         payload = {"access_token": FACEBOOK_KEY, "fields": "cover"}
         res = requests.get(fb_api_base, params=payload).json()
         image_url = res['cover']['source']
+        image_data = urllib.urlopen(image_url)
+        image_type = image_data.info().get('Content-Type')
+        try:
+            image_format = img_formats[image_type]
+        except KeyError:
+            raise ValueError('Not a supported image format')
+
+        image_file = cStringIO.StringIO(image_data.read())
+        image = Image.open(image_file)
+        # should be random enough
+        file_name = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(8))
+        file_name += '.' + image_format
+        image_path = os.path.join(IMAGE_FOLDER, file_name)
+        image.save(image_path, format=image_format)
 
         query = 'insert into events (title, time, location, link, image_url, unix_time)'\
                 'values (?, ?, ?, ?, ?, ?)'
-        g.db.execute(query, [title, time_str, location, link, image_url, unix_time])
+        g.db.execute(query, [title, time_str, location, link, image_path, unix_time])
         g.db.commit()
         flash('New event was successfully posted')
         return redirect(url_for('admin_panel'))
