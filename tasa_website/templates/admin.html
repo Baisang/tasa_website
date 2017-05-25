@@ -5,6 +5,16 @@
 </head>
 <body>
 {% if session.logged_in %}
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li> Error: {{ message }} </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      {% endwith %}
+
       <form action="{{ url_for('add_event') }}" method=post class=add-event>
           <dl>
             <dt>Link:
@@ -13,7 +23,7 @@
           </dl>
       </form>
       <br><br>
-      <form action="{{ url_for('add_officer') }}" method=post>
+      <form action="{{ url_for('add_officer') }}" method=post enctype=multipart/form-data>
         <dl>
         <dt>Name:
         <dd><input type=text size=40 name=name>
@@ -27,9 +37,10 @@
         <dd><input type=text size=100 name=quote>
         <dt>Description:
         <dd><input type=text size=100 name=description>
-        <dt>Image URL:
-        <dd><input type=text size=70 name=imageurl>
-        <dd><input type=submit value=AddOfficer>
+        <dt>File:
+      	<dd><input type=file name=file>
+        <br><br>
+      	<dd><input type=submit value=AddOfficer>
         </dl>
       </form>
       <br><br>

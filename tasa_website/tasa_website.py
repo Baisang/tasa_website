@@ -13,11 +13,20 @@ from flask import Flask, request, session, g, redirect, url_for, \
 from contextlib import closing
 from datetime import datetime, date
 from PIL import Image
+from werkzeug.utils import secure_filename
+
+from helpers import allowed_file
 
 # configuration
 DATABASE = 'tasa_website.db'
 DEBUG = True#False
 IMAGE_FOLDER = 'static/images/'
+OFFICER_IMAGE_FOLDER = 'static/images/officers/'
+img_formats = {
+    'image/jpeg': 'JPEG',
+    'image/png': 'PNG',
+    'image/gif': 'GIF'
+}
 
 with open('TASA_SECRET', 'r') as f_sec:
     SECRET_KEY = f_sec.read().strip()
@@ -30,11 +39,7 @@ with open('TASA_PASSWORD', 'r') as f_pw:
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-img_formats = {
-    'image/jpeg': 'JPEG',
-    'image/png': 'PNG',
-    'image/gif': 'GIF'
-}
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 megabytes
 
 
 def connect_db():
@@ -188,13 +193,28 @@ def add_officer():
     # by id
     if not session.get('logged_in'):
         abort(401)
+
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(url_for('admin_panel'))
+    image = request.files['file']
+    if image.filename == '':
+        flash('No selected file')
+        return redirect(url_for('admin_panel'))
+    if not allowed_file(image.filename):
+        flash('File extension not allowed. Must be jpg, png, or gif')
+        return redirect(url_for('admin_panel'))
+
+    filename = secure_filename(image.filename)
+    image_url = os.path.join(OFFICER_IMAGE_FOLDER, filename)
+    image.save(image_url)
+
     name = request.form['name']
     year = request.form['year']
     major = request.form['major']
     position = request.form['position']
     quote = request.form['quote']
     description = request.form['description']
-    image_url = request.form['imageurl']
     href = '#' + request.form['name']
 
     query = 'insert into officers (name, year, major, quote, description, image_url, position, href)'\
