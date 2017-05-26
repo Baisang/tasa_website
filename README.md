@@ -1,6 +1,6 @@
 # TASA Website
 
-This is the source code for the Taiwanese American Student Association at UC Berkeley. It is currently hosted by the Open Computing Facility. 
+This repo contains the source code for the UC Berkeley [Taiwanese American Student Association](http://tasa.berkeley.edu) website. It is currently hosted by the [Open Computing Facility](https://ocf.io).
 
 ## Conventions
 
@@ -14,6 +14,7 @@ This is the source code for the Taiwanese American Student Association at UC Ber
 Here is how to set up a local version of the website on your own machine.
 
 1. Clone the repository using git
-2. Install and activate virtualenv (make sure this is inside the first tasa_website folder)
-3. Use pip to install all of the modules in requirements.txt
-4. `python tasa_website.py` should start running the server locally
+2. Install and activate virtualenv (make sure this is inside the first `tasa_website` folder). `virtualenv env` and `. env/bin/activate` after you've installed virtualenv.
+3. Use pip to install all of the modules in requirements.txt (`pip install -r requirements.txt`)
+4. `python tasa_website.py` should start running the server locally. Visit the site at `localhost:5000` in your browser.
+
