@@ -2,3 +2,4 @@
 *.DS_Store
 log
 config.yaml
+tasa_website.db
