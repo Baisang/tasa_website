@@ -1,7 +1,4 @@
 *.pyc
-TASA_SECRET
-TASA_USERNAME
-TASA_PASSWORD
-TASA_FACEBOOK
 *.DS_Store
 log
+config.yaml

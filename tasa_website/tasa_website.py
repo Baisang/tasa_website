@@ -7,6 +7,7 @@ import string
 import sqlite3
 import time
 import urllib
+import yaml
 
 from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
@@ -19,6 +20,7 @@ from helpers import allowed_file
 
 # configuration
 DATABASE = 'tasa_website.db'
+CONFIG = 'config.yaml'
 DEBUG = True#False
 IMAGE_FOLDER = 'static/images/'
 OFFICER_IMAGE_FOLDER = 'static/images/officers/'
@@ -28,14 +30,11 @@ img_formats = {
     'image/gif': 'GIF'
 }
 
-with open('TASA_SECRET', 'r') as f_sec:
-    SECRET_KEY = f_sec.read().strip()
-with open('TASA_FACEBOOK', 'r') as f_face:
-    FACEBOOK_KEY = f_face.read().strip()
-with open('TASA_USERNAME', 'r') as f_user:
-    USERNAME = f_user.read().strip()
-with open('TASA_PASSWORD', 'r') as f_pw:
-    PASSWORD = f_pw.read().strip()
+secrets = {}
+with open(CONFIG, 'r') as config:
+    secrets = yaml.load(config)
+
+SECRET_KEY = secrets['secret']
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -96,7 +95,7 @@ def add_event():
         # https://graph.facebook.com/v2.5/1201801539835081?access_token=token
         fb_api_base = 'https://graph.facebook.com/v2.5/'
         fb_api_base += fb_event_id
-        payload = {"access_token": FACEBOOK_KEY}
+        payload = {"access_token": secrets['facebook']}
         res = requests.get(fb_api_base, params=payload).json()
         title = res['name']
         location = res['place']['name']
@@ -107,7 +106,7 @@ def add_event():
         unix_time = int(time.mktime(date_time.timetuple()) + date_time.microsecond/1000000.0)
 
         # another GET to get the cover photo..?
-        payload = {"access_token": FACEBOOK_KEY, "fields": "cover"}
+        payload = {"access_token": secrets['facebook'], "fields": "cover"}
         res = requests.get(fb_api_base, params=payload).json()
         image_url = res['cover']['source']
         image_data = urllib.urlopen(image_url)
@@ -140,9 +139,9 @@ def add_event():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != USERNAME:
+        if request.form['username'] != secrets['username']:
             error = 'Invalid username'
-        elif request.form['password'] != PASSWORD:
+        elif request.form['password'] != secrets['password']:
             error = 'Invalid password'
         else:
             session['logged_in'] = True
