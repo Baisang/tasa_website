@@ -16,5 +16,6 @@ Here is how to set up a local version of the website on your own machine.
 1. Clone the repository using git
 2. Install and activate virtualenv (make sure this is inside the first `tasa_website` folder). `virtualenv env` and `. env/bin/activate` after you've installed virtualenv.
 3. Use pip to install all of the modules in requirements.txt (`pip install -r requirements.txt`)
-4. `python tasa_website.py` should start running the server locally. Visit the site at `localhost:5000` in your browser.
+4. Make a file called `config.yaml` at the same level and similar to the `config.yaml.template` file in `tasa_website/`. Put in an admin account username, password, secret key, and Facebook API token. These will only be active for your local running instance.
+5. `python tasa_website.py` should start running the server locally. Visit the site at `localhost:5000` in your browser.
 
