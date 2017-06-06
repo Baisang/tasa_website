@@ -19,54 +19,19 @@ from werkzeug.utils import secure_filename
 from helpers import allowed_file
 from helpers import check_login
 
-# configuration
-DATABASE = 'tasa_website.db'
-CONFIG = 'config.yaml'
-DEBUG = True#False
-IMAGE_FOLDER = 'static/images/'
-OFFICER_IMAGE_FOLDER = 'static/images/officers/'
+
+from . import app
+from . import query_db
+from . import IMAGE_FOLDER
+from . import OFFICER_IMAGE_FOLDER
+from . import ROOT
+from . import secrets
+
 img_formats = {
     'image/jpeg': 'JPEG',
     'image/png': 'PNG',
     'image/gif': 'GIF'
 }
-
-secrets = {}
-with open(CONFIG, 'r') as config:
-    secrets = yaml.load(config)
-
-SECRET_KEY = secrets['secret']
-
-app = Flask(__name__)
-app.config.from_object(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 megabytes
-
-
-def connect_db():
-    return sqlite3.connect(app.config['DATABASE'])
-
-def init_db():
-    with closing(connect_db()) as db:
-        with app.open_resource('schema.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
-
-@app.before_request
-def before_request():
-    g.db = connect_db()
-    g.db.row_factory = sqlite3.Row
-
-@app.teardown_request
-def teardown_request(exception):
-    db = getattr(g, 'db', None)
-    if db is not None:
-        db.close()
-
-def query_db(query, args=(), one=False):
-    cur = g.db.execute(query, args)
-    rv = cur.fetchall()
-    cur.close()
-    return (rv[0] if rv else None) if one else rv
 
 
 @app.route('/')
@@ -121,12 +86,13 @@ def add_event():
         # should be random enough
         file_name = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(8))
         file_name += '.' + image_format
-        image_path = os.path.join(IMAGE_FOLDER, file_name)
+        image_url = os.path.join(IMAGE_FOLDER, file_name)
+        image_path = os.path.join(ROOT, image_url)
         image.save(image_path, format=image_format)
 
         query = 'insert into events (title, time, location, link, image_url, unix_time)'\
                 'values (?, ?, ?, ?, ?, ?)'
-        g.db.execute(query, [title, time_str, location, link, image_path, unix_time])
+        g.db.execute(query, [title, time_str, location, link, image_url, unix_time])
         g.db.commit()
         flash('New event was successfully posted')
         return redirect(url_for('admin_panel'))
@@ -204,7 +170,8 @@ def add_officer():
 
     filename = secure_filename(image.filename)
     image_url = os.path.join(OFFICER_IMAGE_FOLDER, filename)
-    image.save(image_url)
+    image_path = os.path.join(ROOT, image_url)
+    image.save(image_path)
 
     name = request.form['name']
     year = request.form['year']
@@ -252,7 +219,3 @@ def files():
 @app.route('/donate', methods=['GET'])
 def donate():
     return render_template('donate.html')
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
