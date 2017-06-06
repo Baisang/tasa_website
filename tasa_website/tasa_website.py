@@ -17,6 +17,7 @@ from PIL import Image
 from werkzeug.utils import secure_filename
 
 from helpers import allowed_file
+from helpers import check_login
 
 # configuration
 DATABASE = 'tasa_website.db'
@@ -79,8 +80,7 @@ def show_latest_event():
 
 @app.route('/add', methods=['POST'])
 def add_event():
-    if not session.get('logged_in'):
-        abort(401)
+    check_login()
     try:
         url = request.form['link']
         link = url
@@ -157,8 +157,7 @@ def logout():
 
 @app.route('/admin', methods=['GET'])
 def admin_panel():
-    if not session.get('logged_in'):
-        abort(401)
+    check_login()
     events = query_db('select title from events order by unix_time desc')
     officers = query_db('select name from officers order by id')
     return render_template('admin.html', events=events, officers=officers)
@@ -190,8 +189,7 @@ def officer_list():
 def add_officer():
     # make sure to add officers by dec. position since they are ordered
     # by id
-    if not session.get('logged_in'):
-        abort(401)
+    check_login()
 
     if 'file' not in request.files:
         flash('No file part')
@@ -224,8 +222,7 @@ def add_officer():
 
 @app.route('/add_family', methods=['POST'])
 def add_family():
-    if not session.get('logged_in'):
-        abort(401)
+    check_login()
     family_name = request.form['family_name']
     family_head1 = request.form['family_head1']
     family_head2 = request.form['family_head2']
