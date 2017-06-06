@@ -1,7 +1,7 @@
 import cStringIO
-import dateutil.parser
 import os
 import random
+import re
 import requests
 import string
 import sqlite3
@@ -16,9 +16,8 @@ from datetime import datetime, date
 from PIL import Image
 from werkzeug.utils import secure_filename
 
-from helpers import allowed_file
-from helpers import check_login
-
+import fb_events
+import helpers
 
 from . import app
 from . import query_db
@@ -27,15 +26,10 @@ from . import OFFICER_IMAGE_FOLDER
 from . import ROOT
 from . import secrets
 
-img_formats = {
-    'image/jpeg': 'JPEG',
-    'image/png': 'PNG',
-    'image/gif': 'GIF'
-}
-
-
+# This is kind of backwards, it's rendering a smaller template first that is
+# part of the larger index version. Should fix soon.
 @app.route('/')
-def show_latest_event():
+def index():
     events = query_db('select title, time, location, link, image_url, unix_time from events order by unix_time desc')
     upcoming_events = filter(lambda e: e['unix_time'] > int(time.time()), events)
     if len(upcoming_events) == 0:
@@ -45,60 +39,43 @@ def show_latest_event():
 
 @app.route('/add', methods=['POST'])
 def add_event():
-    check_login()
+    helpers.check_login()
     try:
         url = request.form['link']
-        link = url
         # Facebook event url example:
         # https://www.facebook.com/events/1201801539835081/
-        # we need to get the last part, the id. so let's find the index of the 2nd to last '/'
-        # split the string and go from there.
-        index = url.rfind('/', 0, url.rfind('/'))
-        fb_event_id = url[index : len(url) - 1]
+        # Match the numbers between /s
+        fb_event_id = re.match(r'.*/([0-9]+)/?$', url)
+        if fb_event_id:
+            fb_event_id = fb_event_id.group(1)
+        else:
+            raise Exception('Bad URL')
 
-        # need to submit GET req to something like this:
-        # https://graph.facebook.com/v2.5/1201801539835081?access_token=token
-        fb_api_base = 'https://graph.facebook.com/v2.5/'
-        fb_api_base += fb_event_id
-        payload = {"access_token": secrets['facebook']}
-        res = requests.get(fb_api_base, params=payload).json()
+        res = fb_events.get_event(fb_event_id)
+
         title = res['name']
         location = res['place']['name']
-        time_str = res['start_time']
-        # turns the ISO-8601 format time given to us into epoch time and a formatted string
-        date_time = dateutil.parser.parse(time_str)
-        time_str = date_time.strftime("%A %B %d %I:%M%p")
-        unix_time = int(time.mktime(date_time.timetuple()) + date_time.microsecond/1000000.0)
 
-        # another GET to get the cover photo..?
-        payload = {"access_token": secrets['facebook'], "fields": "cover"}
-        res = requests.get(fb_api_base, params=payload).json()
-        image_url = res['cover']['source']
-        image_data = urllib.urlopen(image_url)
-        image_type = image_data.info().get('Content-Type')
-        try:
-            image_format = img_formats[image_type]
-        except KeyError:
-            raise ValueError('Not a supported image format')
+        time_str, unix_time = helpers.convert_time(res['start_time'])
+
+        # another GET to get the cover photo
+        image_data = fb_events.get_cover_photo(fb_event_id)
+        image_format = helpers.guess_image_extension(image_data)
 
         image_file = cStringIO.StringIO(image_data.read())
         image = Image.open(image_file)
-        # should be random enough
-        file_name = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(8))
-        file_name += '.' + image_format
-        image_url = os.path.join(IMAGE_FOLDER, file_name)
-        image_path = os.path.join(ROOT, image_url)
+        file_name = helpers.generate_random_filename(image_format)
+        image_url, image_path = helpers.create_image_paths(IMAGE_FOLDER, file_name)
         image.save(image_path, format=image_format)
 
         query = 'insert into events (title, time, location, link, image_url, unix_time)'\
                 'values (?, ?, ?, ?, ?, ?)'
-        g.db.execute(query, [title, time_str, location, link, image_url, unix_time])
+        g.db.execute(query, [title, time_str, location, url, image_url, unix_time])
         g.db.commit()
         flash('New event was successfully posted')
         return redirect(url_for('admin_panel'))
     except Exception as e:
-        with open('log', 'a') as f:
-            f.write(str(e)+'\n')
+        flash('Exception: ' + str(e))
         return redirect(url_for('admin_panel'))
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -123,7 +100,7 @@ def logout():
 
 @app.route('/admin', methods=['GET'])
 def admin_panel():
-    check_login()
+    helpers.check_login()
     events = query_db('select title from events order by unix_time desc')
     officers = query_db('select name from officers order by id')
     return render_template('admin.html', events=events, officers=officers)
@@ -155,7 +132,7 @@ def officer_list():
 def add_officer():
     # make sure to add officers by dec. position since they are ordered
     # by id
-    check_login()
+    helpers.check_login()
 
     if 'file' not in request.files:
         flash('No file part')
@@ -164,7 +141,7 @@ def add_officer():
     if image.filename == '':
         flash('No selected file')
         return redirect(url_for('admin_panel'))
-    if not allowed_file(image.filename):
+    if not helpers.allowed_file(image.filename):
         flash('File extension not allowed. Must be jpg, png, or gif')
         return redirect(url_for('admin_panel'))
 
@@ -189,7 +166,7 @@ def add_officer():
 
 @app.route('/add_family', methods=['POST'])
 def add_family():
-    check_login()
+    helpers.check_login()
     family_name = request.form['family_name']
     family_head1 = request.form['family_head1']
     family_head2 = request.form['family_head2']

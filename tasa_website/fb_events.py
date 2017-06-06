@@ -1,0 +1,21 @@
+import requests
+import urllib
+
+from . import secrets
+
+def _api_endpoint(event_id):
+    return 'https://graph.facebook.com/v2.5/{}'.format(event_id)
+
+def get_event(event_id):
+    res = requests.get(_api_endpoint(event_id), params={
+        'access_token': secrets['facebook'],
+    }).json()
+    return res
+
+def get_cover_photo(event_id):
+    res = requests.get(_api_endpoint(event_id), params={
+        'access_token': secrets['facebook'],
+        'fields': 'cover',
+    }).json()
+    image_url = res['cover']['source']
+    return urllib.urlopen(image_url)
