@@ -54,3 +54,4 @@ def query_db(query, args=(), one=False):
 # This is really ugly, but allows us to use decorators in views.py
 # See http://flask.pocoo.org/docs/0.12/patterns/packages/
 import tasa_website.views
+import tasa_website.auth

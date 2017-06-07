@@ -16,6 +16,7 @@ from datetime import datetime, date
 from PIL import Image
 from werkzeug.utils import secure_filename
 
+import auth
 import fb_events
 import helpers
 
@@ -24,7 +25,6 @@ from . import query_db
 from . import IMAGE_FOLDER
 from . import OFFICER_IMAGE_FOLDER
 from . import ROOT
-from . import secrets
 
 # This is kind of backwards, it's rendering a smaller template first that is
 # part of the larger index version. Should fix soon.
@@ -39,7 +39,7 @@ def index():
 
 @app.route('/add', methods=['POST'])
 def add_event():
-    helpers.check_login()
+    auth.check_login()
     try:
         url = request.form['link']
         # Facebook event url example:
@@ -78,29 +78,9 @@ def add_event():
         flash('Exception: ' + str(e))
         return redirect(url_for('admin_panel'))
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != secrets['username']:
-            error = 'Invalid username'
-        elif request.form['password'] != secrets['password']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('admin_panel'))
-    return render_template('login.html', error=error)
-
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show_latest_event'))
-
 @app.route('/admin', methods=['GET'])
 def admin_panel():
-    helpers.check_login()
+    auth.check_login()
     events = query_db('select title from events order by unix_time desc')
     officers = query_db('select name from officers order by id')
     return render_template('admin.html', events=events, officers=officers)
@@ -132,7 +112,7 @@ def officer_list():
 def add_officer():
     # make sure to add officers by dec. position since they are ordered
     # by id
-    helpers.check_login()
+    auth.check_login()
 
     if 'file' not in request.files:
         flash('No file part')
@@ -166,7 +146,7 @@ def add_officer():
 
 @app.route('/add_family', methods=['POST'])
 def add_family():
-    helpers.check_login()
+    auth.check_login()
     family_name = request.form['family_name']
     family_head1 = request.form['family_head1']
     family_head2 = request.form['family_head2']

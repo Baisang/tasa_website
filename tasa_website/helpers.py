@@ -21,10 +21,6 @@ img_formats = {
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def check_login():
-    if not session.get('logged_in'):
-        abort(401)
-
 def convert_time(time_str):
     # turns the ISO-8601 format time given to us into epoch time and a formatted string
     date_time = dateutil.parser.parse(time_str)
