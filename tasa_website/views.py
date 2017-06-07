@@ -95,8 +95,6 @@ def event_list():
     current_time = int(time.time())
     for event in events:
         if event['unix_time'] > current_time:
-            # key thing here to remember was append vs extend,
-            # since event is a sqlite row obj and iterable
             upcoming.append(event)
         else:
             recent.append(event)
@@ -110,24 +108,16 @@ def officer_list():
 
 @app.route('/add_officer', methods=['POST'])
 def add_officer():
-    # make sure to add officers by dec. position since they are ordered
-    # by id
     auth.check_login()
 
-    if 'file' not in request.files:
-        flash('No file part')
-        return redirect(url_for('admin_panel'))
-    image = request.files['file']
-    if image.filename == '':
-        flash('No selected file')
-        return redirect(url_for('admin_panel'))
-    if not helpers.allowed_file(image.filename):
-        flash('File extension not allowed. Must be jpg, png, or gif')
+    try:
+        image = helpers.file_from_request(request)
+    except ValueError as e:
+        flash('Exception: ' + str(e))
         return redirect(url_for('admin_panel'))
 
     filename = secure_filename(image.filename)
-    image_url = os.path.join(OFFICER_IMAGE_FOLDER, filename)
-    image_path = os.path.join(ROOT, image_url)
+    image_url, image_path = helpers.create_image_paths(OFFICER_IMAGE_FOLDER, filename)
     image.save(image_path)
 
     name = request.form['name']
@@ -136,12 +126,14 @@ def add_officer():
     position = request.form['position']
     quote = request.form['quote']
     description = request.form['description']
+    # TODO: this doesn't need to be part of the model
     href = '#' + request.form['name']
 
     query = 'insert into officers (name, year, major, quote, description, image_url, position, href)'\
             'values (?, ?, ?, ?, ?, ?, ?, ?)'
     g.db.execute(query, [name, year, major, quote, description, image_url, position, href])
     g.db.commit()
+    flash('New officer successfully posted')
     return redirect(url_for('admin_panel'))
 
 @app.route('/add_family', methods=['POST'])

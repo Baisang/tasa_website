@@ -45,3 +45,13 @@ def create_image_paths(sub_root, file_name):
     image_url = os.path.join(sub_root, file_name)
     image_path = os.path.join(ROOT, image_url)
     return image_url, image_path
+
+def file_from_request(request):
+    if 'file' not in request.files:
+        raise ValueError('No file attached')
+    image = request.files['file']
+    if image.filename == '':
+        raise ValueError('Filename is empty')
+    if not allowed_file(image.filename):
+        raise ValueError('Not a supported image format')
+    return image
