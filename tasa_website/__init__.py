@@ -14,6 +14,7 @@ CONFIG = 'tasa_website/config.yaml'
 DEBUG = True
 IMAGE_FOLDER = 'static/images/events/'
 OFFICER_IMAGE_FOLDER = 'static/images/officers/'
+FAMILY_IMAGE_FOLDER = 'static/images/families/'
 
 secrets = {}
 with open(CONFIG, 'r') as config:

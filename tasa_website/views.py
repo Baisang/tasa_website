@@ -24,6 +24,7 @@ from . import app
 from . import query_db
 from . import IMAGE_FOLDER
 from . import OFFICER_IMAGE_FOLDER
+from . import FAMILY_IMAGE_FOLDER
 from . import ROOT
 
 # This is kind of backwards, it's rendering a smaller template first that is
@@ -139,16 +140,27 @@ def add_officer():
 @app.route('/add_family', methods=['POST'])
 def add_family():
     auth.check_login()
+
+    try:
+        image = helpers.file_from_request(request)
+    except ValueError as e:
+        flash('Exception: ' + str(e))
+        return redirect(url_for('admin_panel'))
+
+    filename = secure_filename(image.filename)
+    image_url, image_path = helpers.create_image_paths(FAMILY_IMAGE_FOLDER, filename)
+    image.save(image_path)
+
     family_name = request.form['family_name']
     family_head1 = request.form['family_head1']
     family_head2 = request.form['family_head2']
     description = request.form['description']
-    image_url = request.form['image_url']
 
     query = 'insert into families (family_name, family_head1, family_head2, description, image_url)'\
             'values (?, ?, ?, ?, ?)'
     g.db.execute(query, [family_name, family_head1, family_head2, description, image_url])
     g.db.commit()
+    flash('New family successfully posted')
     return redirect(url_for('admin_panel'))
 
 @app.route('/about', methods=['GET'])

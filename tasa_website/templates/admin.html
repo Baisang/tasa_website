@@ -44,7 +44,7 @@
         </dl>
       </form>
       <br><br>
-      <form action="{{url_for('add_family') }}" method=post>
+      <form action="{{ url_for('add_family') }}" method=post enctype=multipart/form-data>
           <dl>
               <dt>Family Name:
               <dd><input type=text size=40 name=family_name>
@@ -54,8 +54,9 @@
               <dd><input type=text size=40 name=family_head2>
               <dt>Description:
               <dd><input type=text size=100 name=description>
-              <dt>Relative Image URL:
-              <dd><input type=text size=70 name=image_url>
+              <dt>File:
+              <dd><input type=file name=file>
+              <br><br>
               <dd><input type=submit value=AddFamily>
           </dl>
       </form>
