@@ -9,10 +9,12 @@ import time
 import urllib
 import yaml
 
-from flask import Flask, request, session, g, redirect, url_for, \
-     abort, render_template, flash
-from contextlib import closing
-from datetime import datetime, date
+from flask import Flask
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import url_for
 from PIL import Image
 from werkzeug.utils import secure_filename
 
@@ -21,11 +23,11 @@ import fb_events
 import helpers
 
 from . import app
-from . import query_db
+from . import FAMILY_IMAGE_FOLDER
 from . import IMAGE_FOLDER
 from . import OFFICER_IMAGE_FOLDER
-from . import FAMILY_IMAGE_FOLDER
 from . import ROOT
+from . import query_db
 
 # This is kind of backwards, it's rendering a smaller template first that is
 # part of the larger index version. Should fix soon.

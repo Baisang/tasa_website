@@ -1,5 +1,10 @@
-from flask import request, session, redirect, url_for, \
-     abort, render_template, flash
+from flask import abort
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import session
+from flask import url_for
 
 from . import app
 from . import secrets
