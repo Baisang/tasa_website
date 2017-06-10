@@ -109,7 +109,7 @@ def officer_list():
     officers = query_db(query)
     return render_template('officers.html', officers=officers)
 
-@app.route('/add_officer', methods=['POST'])
+@app.route('/officers', methods=['POST'])
 def add_officer():
     auth.check_login()
 
@@ -134,12 +134,11 @@ def add_officer():
 
     query = 'insert into officers (name, year, major, quote, description, image_url, position, href)'\
             'values (?, ?, ?, ?, ?, ?, ?, ?)'
-    g.db.execute(query, [name, year, major, quote, description, image_url, position, href])
-    g.db.commit()
+    query_db(query, [name, year, major, quote, description, image_url, position, href])
     flash('New officer successfully posted')
     return redirect(url_for('admin_panel'))
 
-@app.route('/add_family', methods=['POST'])
+@app.route('/families', methods=['POST'])
 def add_family():
     auth.check_login()
 
@@ -160,20 +159,19 @@ def add_family():
 
     query = 'insert into families (family_name, family_head1, family_head2, description, image_url)'\
             'values (?, ?, ?, ?, ?)'
-    g.db.execute(query, [family_name, family_head1, family_head2, description, image_url])
-    g.db.commit()
+    query_db(query, [family_name, family_head1, family_head2, description, image_url])
     flash('New family successfully posted')
     return redirect(url_for('admin_panel'))
-
-@app.route('/about', methods=['GET'])
-def about():
-    return render_template('about.html')
 
 @app.route('/families', methods=['GET'])
 def families():
     query = 'select family_name, family_head1, family_head2, description, image_url from families'
     families = query_db(query)
     return render_template('families.html', families=families)
+
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
 
 @app.route('/files', methods=['GET'])
 def files():
