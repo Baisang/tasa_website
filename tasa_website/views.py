@@ -40,7 +40,22 @@ def index():
     upcoming_events.sort(key=lambda e: e['unix_time'])
     return render_template('show_latest_event.html', event=upcoming_events[0])
 
-@app.route('/add', methods=['POST'])
+@app.route('/events', methods=['GET'])
+def event_list():
+    query = 'select title, time, location, link, image_url, unix_time '\
+            'from events order by unix_time desc limit 24'
+    events = query_db(query)
+    upcoming = []
+    recent = []
+    current_time = int(time.time())
+    for event in events:
+        if event['unix_time'] > current_time:
+            upcoming.append(event)
+        else:
+            recent.append(event)
+    return render_template('events.html', recent=recent, upcoming=upcoming)
+
+@app.route('/events', methods=['POST'])
 def add_event():
     auth.check_login()
     try:
@@ -73,8 +88,8 @@ def add_event():
 
         query = 'insert into events (title, time, location, link, image_url, unix_time)'\
                 'values (?, ?, ?, ?, ?, ?)'
-        g.db.execute(query, [title, time_str, location, url, image_url, unix_time])
-        g.db.commit()
+
+        query_db(query, [title, time_str, location, url, image_url, unix_time])
         flash('New event was successfully posted')
         return redirect(url_for('admin_panel'))
     except Exception as e:
@@ -87,21 +102,6 @@ def admin_panel():
     events = query_db('select title from events order by unix_time desc')
     officers = query_db('select name from officers order by id')
     return render_template('admin.html', events=events, officers=officers)
-
-@app.route('/events', methods=['GET'])
-def event_list():
-    query = 'select title, time, location, link, image_url, unix_time '\
-            'from events order by unix_time desc limit 24'
-    events = query_db(query)
-    upcoming = []
-    recent = []
-    current_time = int(time.time())
-    for event in events:
-        if event['unix_time'] > current_time:
-            upcoming.append(event)
-        else:
-            recent.append(event)
-    return render_template('events.html', recent=recent, upcoming=upcoming)
 
 @app.route('/officers', methods=['GET'])
 def officer_list():

@@ -49,6 +49,7 @@ def teardown_request(exception):
 def query_db(query, args=(), one=False):
     cur = g.db.execute(query, args)
     rv = cur.fetchall()
+    g.db.commit()
     cur.close()
     return (rv[0] if rv else None) if one else rv
 
