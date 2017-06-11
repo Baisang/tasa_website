@@ -100,7 +100,7 @@ def add_event():
 def admin_panel():
     auth.check_login()
     events = query_db('select title from events order by unix_time desc')
-    officers = query_db('select name from officers order by id')
+    officers = query_db('select * from officers order by id')
     return render_template('admin.html', events=events, officers=officers)
 
 @app.route('/officers', methods=['GET'])
@@ -108,6 +108,13 @@ def officer_list():
     query = 'select * from officers order by id'
     officers = query_db(query)
     return render_template('officers.html', officers=officers)
+
+@app.route('/officers/<int:officer_id>', methods=['DELETE'])
+def delete_officer(officer_id):
+    auth.check_login()
+    query = 'delete from officers where id = ?'
+    query_db(query, (officer_id,))
+    return 'Deleted officer'
 
 @app.route('/officers', methods=['POST'])
 def add_officer():
