@@ -12,7 +12,7 @@
                         <img class="officer-member-picture" src="{{ officer.image_url }}"></img>
                         <div class="officer-member-info">
                             <span class="name">{{ officer.name }}</span>
-                            <span class="position_name">{{ officer.position }}</span>
+                            <span class="position_name">{{ convert_position(officer.position) }}</span>
                             <span class="major">{{ officer.major }}</span>
                             <span class="year">{{ officer.year }}</span>
                         </div>

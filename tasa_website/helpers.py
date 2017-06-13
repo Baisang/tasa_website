@@ -12,6 +12,25 @@ from . import ROOT
 
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'gif', 'png'])
 
+POSITIONS = [
+    'President',
+    'Internal Vice President',
+    'External Vice President',
+    'Treasurer',
+    'Webmaster',
+    'Outreach',
+    'Public Relations',
+    'Family Head',
+    'Historian',
+    'Senior Advisor',
+    'Family Head Intern',
+    'Historian Intern',
+    'Public Relations Intern',
+    'Outreach Intern',
+    'Treasurer Intern',
+    'Webmaster Intern',
+]
+
 img_formats = {
     'image/jpeg': 'JPEG',
     'image/png': 'PNG',

@@ -3,6 +3,7 @@ import string
 import sqlite3
 import yaml
 
+from contextlib import closing
 from flask import Flask
 from flask import g
 

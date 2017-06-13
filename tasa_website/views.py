@@ -105,7 +105,7 @@ def admin_panel():
 
 @app.route('/officers', methods=['GET'])
 def officer_list():
-    query = 'select * from officers order by id'
+    query = 'select * from officers order by position'
     officers = query_db(query)
     return render_template('officers.html', officers=officers)
 
@@ -187,3 +187,11 @@ def files():
 @app.route('/donate', methods=['GET'])
 def donate():
     return render_template('donate.html')
+
+@app.context_processor
+def processor():
+
+    def convert_position(pos_int):
+        return helpers.POSITIONS[pos_int]
+
+    return dict(convert_position=convert_position)
