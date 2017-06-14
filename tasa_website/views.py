@@ -1,4 +1,5 @@
 import cStringIO
+import json
 import os
 import random
 import re
@@ -108,6 +109,12 @@ def officer_list():
     query = 'select * from officers order by position'
     officers = query_db(query)
     return render_template('officers.html', officers=officers)
+
+@app.route('/officers/<int:officer_id>', methods=['GET'])
+def get_officer(officer_id):
+    query = 'select * from officers where id = ?'
+    officer = query_db(query, (officer_id,))[0]
+    return json.dumps(dict(officer))
 
 @app.route('/officers/<int:officer_id>', methods=['DELETE'])
 def delete_officer(officer_id):
