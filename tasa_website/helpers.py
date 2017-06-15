@@ -7,6 +7,7 @@ import time
 import dateutil.parser
 from flask import abort
 from flask import session
+from werkzeug.utils import secure_filename
 
 from . import ROOT
 
@@ -74,3 +75,10 @@ def file_from_request(request):
     if not allowed_file(image.filename):
         raise ValueError('Not a supported image format')
     return image
+
+def save_request_file(request, save_folder):
+    image = file_from_request(request)
+    filename = secure_filename(image.filename)
+    image_url, image_path = create_image_paths(save_folder, filename)
+    image.save(image_path)
+    return image_url, image_path

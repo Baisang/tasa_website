@@ -116,6 +116,44 @@ def get_officer(officer_id):
     officer = query_db(query, (officer_id,))[0]
     return json.dumps(dict(officer))
 
+# This ideally should be PUT, but for simplicity on the client side
+# (i.e. so we can use vanilla HTML form) we'll use POST instead.
+@app.route('/officers/<int:officer_id>', methods=['POST'])
+def update_officer(officer_id):
+    auth.check_login()
+
+    name = request.form['name']
+    year = request.form['year']
+    major = request.form['major']
+    position = request.form['position']
+    quote = request.form['quote']
+    description = request.form['description']
+    href = '#' + request.form['name']
+
+    if 'file' in request.files:
+        try:
+            image_url, image_path = helpers.save_request_file(request, OFFICER_IMAGE_FOLDER)
+        except ValueError as e:
+            flash('Exception: ' + str(e))
+            return redirect(url_for('admin_panel'))
+        query = (
+            'update officers '
+            'set name=?, year=?, major=?, position=?, quote=?, description=?, href=?, image_url=? '
+            'where id=?'
+        )
+        query_db(query, [name, year, major, position, quote, description, href, image_url, officer_id])
+    else:
+        query = (
+            'update officers '
+            'set name=?, year=?, major=?, position=?, quote=?, description=?, href=? '
+            'where id=?'
+        )
+        query_db(query, [name, year, major, position, quote, description, href, officer_id])
+    flash('Updated ' + name)
+    # TODO: think about doing all of these redirects javascript-side
+    return redirect(url_for('admin_panel'))
+
+
 @app.route('/officers/<int:officer_id>', methods=['DELETE'])
 def delete_officer(officer_id):
     auth.check_login()
