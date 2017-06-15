@@ -17,7 +17,6 @@ from flask import render_template
 from flask import request
 from flask import url_for
 from PIL import Image
-from werkzeug.utils import secure_filename
 
 import auth
 import fb_events
@@ -132,7 +131,7 @@ def update_officer(officer_id):
 
     if 'file' in request.files:
         try:
-            image_url, image_path = helpers.save_request_file(request, OFFICER_IMAGE_FOLDER)
+            image_url = helpers.save_request_file(request, OFFICER_IMAGE_FOLDER)
         except ValueError as e:
             flash('Exception: ' + str(e))
             return redirect(url_for('admin_panel'))
@@ -171,9 +170,7 @@ def add_officer():
         flash('Exception: ' + str(e))
         return redirect(url_for('admin_panel'))
 
-    filename = secure_filename(image.filename)
-    image_url, image_path = helpers.create_image_paths(OFFICER_IMAGE_FOLDER, filename)
-    image.save(image_path)
+    image_url = helpers.save_request_file(request, OFFICER_IMAGE_FOLDER)
 
     name = request.form['name']
     year = request.form['year']
@@ -200,9 +197,7 @@ def add_family():
         flash('Exception: ' + str(e))
         return redirect(url_for('admin_panel'))
 
-    filename = secure_filename(image.filename)
-    image_url, image_path = helpers.create_image_paths(FAMILY_IMAGE_FOLDER, filename)
-    image.save(image_path)
+    image_url = helpers.save_request_file(request, FAMILY_IMAGE_FOLDER)
 
     family_name = request.form['family_name']
     family_head1 = request.form['family_head1']

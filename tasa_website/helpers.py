@@ -81,4 +81,4 @@ def save_request_file(request, save_folder):
     filename = secure_filename(image.filename)
     image_url, image_path = create_image_paths(save_folder, filename)
     image.save(image_path)
-    return image_url, image_path
+    return image_url
