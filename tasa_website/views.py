@@ -210,6 +210,37 @@ def add_family():
     flash('New family successfully posted')
     return redirect(url_for('admin_panel'))
 
+@app.route('/families/<int:family_id>', methods=['POST'])
+def edit_family():
+    auth.check_login()
+
+    family_name = request.form['family_name']
+    family_head1 = request.form['family_head1']
+    family_head2 = request.form['family_head2']
+    description = request.form['description']
+
+    if 'file' in request.files:
+        try:
+            image_url = helpers.save_request_file(request, FAMILY_IMAGE_FOLDER)
+        except ValueError as e:
+            flash('Exception: ' + str(e))
+            return redirect(url_for('admin_panel'))
+        query = (
+            'update families '
+            'set family_name=?, family_head1=?, family_head2=?, description=?, image_url=? '
+            'where id=?'
+        )
+        query_db(query, [family_name, family_head1, family_head2, description, image_url, family_id])
+    else:
+        query = (
+            'update families '
+            'set family_name=?, family_head1=?, family_head2=?, description=?'
+            'where id=?'
+        )
+        query_db(query, [family_name, family_head1, family_head2, description, family_id])
+    flash('Updated ' + family_name)
+    return redirect(url_for('admin_panel'))
+
 @app.route('/families', methods=['GET'])
 def families():
     query = 'select family_name, family_head1, family_head2, description, image_url from families'
