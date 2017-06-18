@@ -101,7 +101,8 @@ def admin_panel():
     auth.check_login()
     events = query_db('select title from events order by unix_time desc')
     officers = query_db('select * from officers order by id')
-    return render_template('admin.html', events=events, officers=officers)
+    families = query_db('select * from families order by id')
+    return render_template('admin.html', events=events, officers=officers, families=families)
 
 @app.route('/officers', methods=['GET'])
 def officer_list():
@@ -129,7 +130,7 @@ def update_officer(officer_id):
     description = request.form['description']
     href = '#' + request.form['name']
 
-    if 'file' in request.files:
+    if helpers.check_file_in_request(request):
         try:
             image_url = helpers.save_request_file(request, OFFICER_IMAGE_FOLDER)
         except ValueError as e:
@@ -211,7 +212,7 @@ def add_family():
     return redirect(url_for('admin_panel'))
 
 @app.route('/families/<int:family_id>', methods=['POST'])
-def edit_family():
+def edit_family(family_id):
     auth.check_login()
 
     family_name = request.form['family_name']
@@ -219,7 +220,7 @@ def edit_family():
     family_head2 = request.form['family_head2']
     description = request.form['description']
 
-    if 'file' in request.files:
+    if helpers.check_file_in_request(request):
         try:
             image_url = helpers.save_request_file(request, FAMILY_IMAGE_FOLDER)
         except ValueError as e:

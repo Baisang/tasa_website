@@ -16,23 +16,23 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="officerModalLabel">Update Officer</h4>
         </div>
-        <form id="modal-form" method="post" enctype=multipart/form-data>
+        <form id="officer-modal-form" method="post" enctype=multipart/form-data>
         <div class="modal-body">
             <div class="form-group">
               <label for="name" class="control-label">Name:</label>
-              <input type="text" name="name" class="form-control" id="modal-name"></input>
+              <input type="text" name="name" class="form-control" id="officer-modal-name"></input>
             </div>
             <div class="form-group">
               <label for="year" class="control-label">Year:</label>
-              <input type="text" name="year" class="form-control" id="modal-year"></input>
+              <input type="text" name="year" class="form-control" id="officer-modal-year"></input>
             </div>
             <div class="form-group">
               <label for="major" class="control-label">Major:</label>
-              <input type="text" name="major" class="form-control" id="modal-major"></input>
+              <input type="text" name="major" class="form-control" id="officer-modal-major"></input>
             </div>
             <div class="form-group">
               <label for="position" class="control-label">Position:</label>
-              <select name="position" id="modal-position">
+              <select name="position" id="officer-modal-position">
                 <option value=0>President</option>
                 <option value=1>Internal Vice President</option>
                 <option value=2>External Vice President</option>
@@ -53,11 +53,51 @@
             </div>
             <div class="form-group">
               <label for="quote" class="control-label">Quote:</label>
-              <textarea type="text" name="quote" class="form-control" id="modal-quote"></textarea>
+              <textarea type="text" name="quote" class="form-control" id="officer-modal-quote"></textarea>
             </div>
             <div class="form-group">
               <label for="description" class="control-label">Description:</label>
-              <textarea type="text" name="description" class="form-control" id="modal-description"></textarea>
+              <textarea type="text" name="description" class="form-control" id="officer-modal-description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="file" class="control-label">Image:</label>
+              <input type=file name=file class="form-control"></input>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" name="submit" value="Submit" class="btn btn-primary">Save Changes</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="familyModal" tabindex="-1" role="dialog" aria-labelledby="familyModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="familyModalLabel">Update family</h4>
+        </div>
+        <form id="family-modal-form" method="post" enctype=multipart/form-data>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="family_name" class="control-label">Family Name:</label>
+              <input type="text" name="family_name" class="form-control" id="family-modal-name"></input>
+            </div>
+            <div class="form-group">
+              <label for="description" class="control-label">Description:</label>
+              <input type="text" name="description" class="form-control" id="family-modal-description"></input>
+            </div>
+            <div class="form-group">
+              <label for="family_head1" class="control-label">Family Head 1:</label>
+              <input type="text" name="family_head1" class="form-control" id="family-modal-familyhead1"></input>
+            </div>
+            <div class="form-group">
+              <label for="family_head2" class="control-label">Family Head 2:</label>
+              <textarea type="text" name="family_head2" class="form-control" id="family-modal-familyhead2"></textarea>
             </div>
             <div class="form-group">
               <label for="file" class="control-label">Image:</label>
@@ -198,6 +238,19 @@
               {% endfor %}
               </ul>
           </div>
+          <div class="col">
+            <h2>All Families in DB:</h2>
+              <ul>
+              {% for family in families %}
+                <li>
+                  {{ family.family_name }}
+                  <a href="javascript:void(0);" data-toggle="modal" data-target="#familyModal"
+                      data-name="{{family.family_name}}" data-id="{{family.id}}" data-familyhead1="{{family.family_head1}}"
+                      data-familyhead2="{{family.family_head2}}" data-description="{{family.description}}">Update</a>
+                </li>
+              {% endfor %}
+              </ul>
+          </div>
         </div>
       </div>
 {% endif %}
@@ -226,15 +279,33 @@ $('#officerModal').on('show.bs.modal', function(e) {
   const position = link.data('position');
   const modal = $(this);
   modal.find('.modal-title').text('Updating ' + name);
-  modal.find('#modal-name').val(name);
-  modal.find('#modal-year').val(year);
-  modal.find('#modal-major').val(major);
-  modal.find('#modal-quote').val(quote);
-  modal.find('#modal-description').val(description);
-  modal.find('#modal-position').val(position);
+  modal.find('#officer-modal-name').val(name);
+  modal.find('#officer-modal-year').val(year);
+  modal.find('#officer-modal-major').val(major);
+  modal.find('#officer-modal-quote').val(quote);
+  modal.find('#officer-modal-description').val(description);
+  modal.find('#officer-modal-position').val(position);
 
   const updateUrl = '/officers/' + id;
-  modal.find('#modal-form').attr('action', updateUrl);
+  modal.find('#officer-modal-form').attr('action', updateUrl);
+});
+
+$('#familyModal').on('show.bs.modal', function(e) {
+  const link = $(e.relatedTarget);
+  const name = link.data('name');
+  const id = link.data('id');
+  const description = link.data('description');
+  const familyhead1 = link.data('familyhead1');
+  const familyhead2 = link.data('familyhead2');
+  const modal = $(this);
+  modal.find('.modal-title').text('Updating ' + name);
+  modal.find('#family-modal-name').val(name);
+  modal.find('#family-modal-description').val(description);
+  modal.find('#family-modal-familyhead1').val(familyhead1);
+  modal.find('#family-modal-familyhead2').val(familyhead2);
+
+  const updateUrl = '/families/' + id;
+  modal.find('#family-modal-form').attr('action', updateUrl);
 });
 
 </script>

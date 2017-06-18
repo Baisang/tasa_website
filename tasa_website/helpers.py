@@ -69,12 +69,12 @@ def create_image_paths(sub_root, file_name):
 def file_from_request(request):
     if 'file' not in request.files:
         raise ValueError('No file attached')
-    image = request.files['file']
-    if image.filename == '':
+    request_file = request.files['file']
+    if request_file.filename == '':
         raise ValueError('Filename is empty')
-    if not allowed_file(image.filename):
+    if not allowed_file(request_file.filename):
         raise ValueError('Not a supported image format')
-    return image
+    return request_file
 
 def save_request_file(request, save_folder):
     image = file_from_request(request)
@@ -82,3 +82,6 @@ def save_request_file(request, save_folder):
     image_url, image_path = create_image_paths(save_folder, filename)
     image.save(image_path)
     return image_url
+
+def check_file_in_request(request):
+    return 'file' in request.files and request.files['file'].filename != ''
