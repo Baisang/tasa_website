@@ -23,9 +23,9 @@ body {
 }
 
 .secondSplash {
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("../images/secondSplash.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
@@ -40,9 +40,9 @@ body {
 }
 
 .thirdSplash {
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("../images/fall14cabinet.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
@@ -86,9 +86,9 @@ body {
 }
 
 .splash {
-		background-image: 
+		background-image:
 		-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/lowresSplash.jpg");
-		background-image: 
+		background-image:
 		linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
@@ -154,11 +154,11 @@ body {
 	}
 
 	.main-title {
-		font-size: 3em; 
+		font-size: 3em;
 		margin-top: 1em;
 		margin-bottom: 2em;
 		text-align:center;
-		color: white; 
+		color: white;
 		opacity: .7;
 		-webkit-box-ordinal-group: 3;
 		-webkit-order: 2;
@@ -215,7 +215,7 @@ body {
 		background-size: cover;
 	}
 	.logo {
-		width: 10em; 
+		width: 10em;
 		opacity: .6;
 		-webkit-box-ordinal-group: 2;
 		-webkit-order: 1;
@@ -226,8 +226,8 @@ body {
 	}
 
 	.main-title {
-		font-size: 5em; 
-		color: white; 
+		font-size: 5em;
+		color: white;
 		opacity: .7;
 		-webkit-box-ordinal-group: 3;
 		-webkit-order: 2;
@@ -277,7 +277,7 @@ body {
 @media (min-width: 1200px)
 {
 	.logo {
-		width: 10em; 
+		width: 10em;
 		opacity: .6;
 		-webkit-box-ordinal-group: 2;
 		-webkit-order: 1;
@@ -288,8 +288,8 @@ body {
 	}
 
 	.main-title {
-		font-size: 6em; 
-		color: white; 
+		font-size: 6em;
+		color: white;
 		opacity: .7;
 		-webkit-box-ordinal-group: 3;
 		-webkit-order: 2;
@@ -376,9 +376,9 @@ body {
 }
 
 .about-splash {
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url("../images/about.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
@@ -395,9 +395,9 @@ body {
 }
 
 .family-splash {
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4)), url("../images/families.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
@@ -410,7 +410,7 @@ body {
 	width: 100%;
 	vertical-align: top;
 	font-family: 'Yantramanav', sans-serif;
-	display: block;	
+	display: block;
 	background-position: 0% 33%;
 }
 
@@ -434,9 +434,9 @@ body {
 }
 
 .darken-event {
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("../images/events.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
@@ -466,7 +466,7 @@ body {
 
 .row.officer {
 	max-width: 95%;
-	margin: 0 2.5%;	
+	margin: 0 2.5%;
 }
 
 @media (max-width: 767px) {
@@ -496,15 +496,15 @@ h3.event-subheader {
 	background-size: cover;
 	height: 33em;
 	width: 100%;
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/sp16cabinet.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/sp16cabinet.jpg");	
+	url("../images/sp16cabinet.jpg");
 }
 
 .files-splash {
@@ -514,15 +514,15 @@ h3.event-subheader {
 	background-size: cover;
 	height: 33em;
 	width: 100%;
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/files.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/files.jpg");	
+	url("../images/files.jpg");
 	margin-top: -1.2em;
 }
 
@@ -533,15 +533,15 @@ h3.event-subheader {
 	background-size: cover;
 	height: 33em;
 	width: 100%;
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/donate.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/donate.jpg");	
+	url("../images/donate.jpg");
 	margin-top: -1.2em;
 }
 
@@ -672,22 +672,22 @@ h3.event-subheader {
 		padding: 0;
 		margin: .5em;
 		padding-top: 5em;
-		font-size: 4em;		
+		font-size: 4em;
 	}
 	.about-splash {
 		height: 25em;
 		background-position: 50% 0;
-		margin-top: -1.8em;		
+		margin-top: -1.8em;
 	}
 	.eventSplash {
 		height: 25em;
 		background-position: 50% 0;
-		margin-top: -1.8em;		
+		margin-top: -1.8em;
 	}
 	.family-splash {
 		height: 25em;
 		background-position: 50% 0;
-		margin-top: -1.8em;		
+		margin-top: -1.8em;
 	}
 	.files-splash {
 		height: 25em;
@@ -735,9 +735,9 @@ h3.event-subheader {
 }*/
 
 .family1 {
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.3)), url("../images/taibae.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
@@ -748,16 +748,16 @@ h3.event-subheader {
 	font-family: 'Yantramanav', sans-serif;
 	display: block;
 	background-size: cover;
-	height: 27em;			
+	height: 27em;
 	border-style: solid;
 	border-width: .4em;
-	border-color: #DDDDDD;		
+	border-color: #DDDDDD;
 }
 
 .family2 {
-	background-image: 
+	background-image:
 	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.3)), url("../images/tailol.jpg");
-	background-image: 
+	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
@@ -768,14 +768,14 @@ h3.event-subheader {
 	font-family: 'Yantramanav', sans-serif;
 	display: block;
 	background-size: cover;
-	height: 27em;			
+	height: 27em;
 	border-style: solid;
 	border-width: .4em;
-	border-color: #DDDDDD;		
+	border-color: #DDDDDD;
 }
 
 .officer-member-container {
-    min-height: 300px; 
+    min-height: 300px;
     width: 820px;
     margin: 0 auto;
     float: none;
