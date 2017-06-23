@@ -70,7 +70,6 @@ def add_event():
             raise Exception('Bad URL')
 
         res = fb_events.get_event(fb_event_id)
-
         title = res['name']
         location = res['place']['name']
 
