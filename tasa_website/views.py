@@ -36,7 +36,7 @@ def index():
     events = query_db('select title, time, location, link, image_url, unix_time from events order by unix_time desc')
     upcoming_events = filter(lambda e: e['unix_time'] > int(time.time()), events)
     if len(upcoming_events) == 0:
-        upcoming_events.append(events[0])
+        return render_template('show_latest_event.html')
     upcoming_events.sort(key=lambda e: e['unix_time'])
     return render_template('show_latest_event.html', event=upcoming_events[0])
 
