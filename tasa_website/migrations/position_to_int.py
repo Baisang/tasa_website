@@ -37,6 +37,19 @@ def main():
     db = connect_db()
     db.row_factory = sqlite3.Row
     officers = get_officers(db)
+    query_db(db, '''drop table if exists officers;
+    create table officers (
+    	id integer primary key autoincrement,
+    	name text not null,
+    	year integer not null,
+    	major text not null,
+    	quote text not null,
+    	description text not null,
+    	image_url text not null,
+    	position integer not null,
+    	href text not null
+    );''')
+
     for officer in officers:
         if officer['position'] == 'EVP':
             officer['position'] = 'External Vice President'
