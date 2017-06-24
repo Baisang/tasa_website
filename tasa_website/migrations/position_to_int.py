@@ -37,7 +37,10 @@ def main():
     db = connect_db()
     db.row_factory = sqlite3.Row
     officers = get_officers(db)
-    query_db(db, '''drop table if exists officers;
+    query_db(db, 'drop table if exists officers;')
+
+
+    query_db(db,'''
     create table officers (
     	id integer primary key autoincrement,
     	name text not null,
@@ -47,15 +50,15 @@ def main():
     	description text not null,
     	image_url text not null,
     	position integer not null,
-    	href text not null
-    );''')
+    	href text not null);''')
 
     for officer in officers:
+        position = officer['position']
         if officer['position'] == 'EVP':
-            officer['position'] = 'External Vice President'
+            position = 'External Vice President'
         elif officer['position'] == 'IVP':
-            officer['position'] = 'Internal Vice President'
-        new_position = POSITIONS.index(officer['position'])
+            position = 'Internal Vice President'
+        new_position = POSITIONS.index(position)
         query = 'insert into officers (name, year, major, quote, description, image_url, position, href)'\
                 'values (?, ?, ?, ?, ?, ?, ?, ?)'
         query_db(db, query, [
