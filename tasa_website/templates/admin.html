@@ -293,6 +293,7 @@
                       <a href="javascript:void(0);" data-toggle="modal" data-target="#familyModal"
                           data-name="{{family.family_name}}" data-id="{{family.id}}" data-familyhead1="{{family.family_head1}}"
                           data-familyhead2="{{family.family_head2}}" data-description="{{family.description}}">Update</a>
+                      <a href="javascript:void(0);" onclick="deleteFamily({{family.id}}, '{{family.family_name}}')">Delete</a>
                     </li>
                   {% endfor %}
                   </ul>
@@ -312,6 +313,15 @@ function deleteOfficer(officer_id, officer_name) {
   if (confirm('Are you sure you want to delete ' + officer_name + '?')) {
     $.ajax({
       url: '/officers/' + officer_id,
+      type: 'DELETE',
+    });
+    location.reload();
+  }
+}
+function deleteFamily(family_id, family_name) {
+  if (confirm('Are you sure you want to delete ' + family_name + '?')) {
+    $.ajax({
+      url: '/families/' + family_id,
       type: 'DELETE',
     });
     location.reload();
