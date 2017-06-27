@@ -8,6 +8,10 @@ body {
 	line-height: 200%;
 }
 
+html {
+    overflow-y:scroll;
+}
+
 .navbar {
 	background-color: #000000;
 	background: #000000;
