@@ -241,6 +241,13 @@ def edit_family(family_id):
     flash('Updated ' + family_name)
     return redirect(url_for('admin_panel'))
 
+@app.route('/families/<int:family_id>', methods=['DELETE'])
+def delete_family(family_id):
+    auth.check_login()
+    query = 'delete from families where id = ?'
+    query_db(query, (family_id,))
+    return 'Deleted family'
+
 @app.route('/families', methods=['GET'])
 def families():
     query = 'select family_name, family_head1, family_head2, description, image_url from families'
