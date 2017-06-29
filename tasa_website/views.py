@@ -95,6 +95,14 @@ def add_event():
         flash('Exception: ' + str(e))
         return redirect(url_for('admin_panel'))
 
+@app.route('/events/<int:event_id>', methods=['DELETE'])
+def delete_event(event_id):
+    auth.check_login()
+    query = 'delete from events where id = ?'
+    query_db(query, (event_id,))
+    return 'Deleted event'
+
+
 @app.route('/admin', methods=['GET'])
 def admin_panel():
     auth.check_login()
