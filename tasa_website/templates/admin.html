@@ -255,7 +255,10 @@
                 <h2>All Events in DB:</h2>
                   <ul>
                   {% for event in events %}
-                    <li><h4>{{ event.title }}</h4></li>
+                    <li>
+                      {{ event.title }} &nbsp;
+                      <a href="javascript:void(0);" onclick="deleteEvent({{event.id}}, '{{event.title}}')">Delete</a>
+                    </li>
                   {% endfor %}
                   </ul>
               </div>
@@ -324,6 +327,15 @@ function deleteFamily(family_id, family_name) {
   if (confirm('Are you sure you want to delete ' + family_name + '?')) {
     $.ajax({
       url: '/families/' + family_id,
+      type: 'DELETE',
+    });
+    location.reload();
+  }
+}
+function deleteEvent(event_id, event_title) {
+  if (confirm('Are you sure you want to delete ' + event_title + '?')) {
+    $.ajax({
+      url: '/events/' + event_id,
       type: 'DELETE',
     });
     location.reload();

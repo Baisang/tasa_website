@@ -106,7 +106,7 @@ def delete_event(event_id):
 @app.route('/admin', methods=['GET'])
 def admin_panel():
     auth.check_login()
-    events = query_db('select title from events order by unix_time desc')
+    events = query_db('select * from events order by unix_time desc')
     officers = query_db('select * from officers order by id')
     families = query_db('select * from families order by id')
     return render_template('admin.html', events=events, officers=officers, families=families)
