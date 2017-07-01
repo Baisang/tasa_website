@@ -61,10 +61,10 @@ def generate_random_filename(extension):
     file_name += '.' + extension
     return file_name
 
-def create_image_paths(sub_root, file_name):
-    image_url = os.path.join(sub_root, file_name)
-    image_path = os.path.join(ROOT, image_url)
-    return image_url, image_path
+def create_file_paths(sub_root, file_name):
+    file_url = os.path.join(sub_root, file_name)
+    file_path = os.path.join(ROOT, file_url)
+    return file_url, file_path
 
 def file_from_request(request):
     if 'file' not in request.files:
@@ -77,11 +77,11 @@ def file_from_request(request):
     return request_file
 
 def save_request_file(request, save_folder):
-    image = file_from_request(request)
-    filename = secure_filename(image.filename)
-    image_url, image_path = create_image_paths(save_folder, filename)
-    image.save(image_path)
-    return image_url
+    f = file_from_request(request)
+    filename = secure_filename(f.filename)
+    f_url, f_path = create_image_paths(save_folder, filename)
+    f.save(f_path)
+    return f_url
 
 def check_file_in_request(request):
     return 'file' in request.files and request.files['file'].filename != ''

@@ -31,3 +31,10 @@ create table families(
     description text not null,
     image_url text not null
 );
+
+drop table if exists files;
+create table files(
+    id integer primary key autoincrement,
+    name text not null,
+    file_url text not null,
+);

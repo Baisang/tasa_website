@@ -26,6 +26,7 @@ from . import app
 from . import FAMILY_IMAGE_FOLDER
 from . import IMAGE_FOLDER
 from . import OFFICER_IMAGE_FOLDER
+from . import FILES_FOLDER
 from . import ROOT
 from . import query_db
 
@@ -82,7 +83,7 @@ def add_event():
         image_file = cStringIO.StringIO(image_data.read())
         image = Image.open(image_file)
         file_name = helpers.generate_random_filename(image_format)
-        image_url, image_path = helpers.create_image_paths(IMAGE_FOLDER, file_name)
+        image_url, image_path = helpers.create_file_paths(IMAGE_FOLDER, file_name)
         image.save(image_path, format=image_format)
 
         query = 'insert into events (title, time, location, link, image_url, unix_time)'\
@@ -261,6 +262,26 @@ def families():
     query = 'select family_name, family_head1, family_head2, description, image_url from families'
     families = query_db(query)
     return render_template('families.html', families=families)
+
+@app.route('/files', methods=['POST'])
+def add_file():
+    auth.check_login()
+
+    try:
+        f = helpers.file_from_request(request)
+    except ValueError as e:
+        flash('Exception: ' + str(e))
+        return redirect(url_for('admin_panel'))
+
+    file_url = helpers.save_request_file(request, FILES_FOLDER)
+
+    name = request.form['name']
+
+    query = 'insert into files (name, file_url)'\
+            'values (?, ?)'
+    query_db(query, [name, file_url])
+    flash('New file successfully posted')
+    return redirect(url_for('admin_panel'))
 
 @app.route('/about', methods=['GET'])
 def about():

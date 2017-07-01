@@ -16,6 +16,7 @@ DEBUG = True
 IMAGE_FOLDER = 'static/images/events/'
 OFFICER_IMAGE_FOLDER = 'static/images/officers/'
 FAMILY_IMAGE_FOLDER = 'static/images/families/'
+FILES_FOLDER = 'static/files/'
 
 secrets = {}
 with open(CONFIG, 'r') as config:
