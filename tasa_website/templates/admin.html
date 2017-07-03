@@ -139,6 +139,7 @@
           <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#viewEvents">View Events</a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#viewOfficers">View Officers</a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#viewFamilies">View Families</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#addFile">Add File</a></li>
         </ul>
 
         <div class="tab-content">
@@ -302,6 +303,26 @@
                     </li>
                   {% endfor %}
                   </ul>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+          <div class="tab-pane" id="addFile" role="tabpanel">
+            <div class="row welcome">
+              <div class="col"></div>
+              <div class="col">
+                <h2>Add a File</h2>
+                <form action="{{ url_for('add_file') }}" method=post enctype=multipart/form-data>
+                    <div class="form-group">
+                      <label for="fileName">File Name</label>
+                      <input name=name type="text" class="form-control" id="fileName">
+                    </div>
+                    <div class="form-group">
+                      <label for="file">File</label>
+                      <input class="form-control-file" type=file name=file id="file">
+                    </div>
+                    <button class="btn btn-primary" type=submit>Add File</button>
+                </form>
               </div>
               <div class="col"></div>
             </div>

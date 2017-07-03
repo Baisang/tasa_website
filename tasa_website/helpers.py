@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 
 from . import ROOT
 
-ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'gif', 'png'])
+ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'gif', 'png', 'pdf', 'doc', 'docx'])
 
 POSITIONS = [
     'President',
@@ -73,13 +73,13 @@ def file_from_request(request):
     if request_file.filename == '':
         raise ValueError('Filename is empty')
     if not allowed_file(request_file.filename):
-        raise ValueError('Not a supported image format')
+        raise ValueError('Not a supported file format. Must be gif, png, jpg, pdf, doc, or docx')
     return request_file
 
 def save_request_file(request, save_folder):
     f = file_from_request(request)
     filename = secure_filename(f.filename)
-    f_url, f_path = create_image_paths(save_folder, filename)
+    f_url, f_path = create_file_paths(save_folder, filename)
     f.save(f_path)
     return f_url
 
