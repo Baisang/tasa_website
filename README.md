@@ -14,8 +14,8 @@ This repo contains the source code for the UC Berkeley [Taiwanese American Stude
 Here is how to set up a local version of the website on your own machine.
 
 1. Clone the repository using git
-2. Install and activate virtualenv (make sure this is inside the first `tasa_website` folder). `virtualenv env` and `. env/bin/activate` after you've installed virtualenv.
-3. Use pip to install all of the modules in requirements.txt (`pip install -r requirements.txt`)
+2. Install [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
+3. `make venv` should create your `venv` for you, if you need to do anything with that.
 4. Make a file called `config.yaml` at the same level and similar to the `config.yaml.template` file in `tasa_website/`. Put in an admin account username, password, secret key, and Facebook API token. These will only be active for your local running instance.
-5. `python run.py` should start running the server locally. Visit the site at `localhost:5000` in your browser.
+5. `make run` to start everything locally. You should be able to view your site locally at `localhost:5000`
 
