@@ -9,17 +9,15 @@
       <div class="container-fluid">
         <div class="row row-pad event">
           <div class="col-md-12 col-pad">
-            <h2>Current Semester - Spring 2017</h2>
-            <h4 class="faded">Officer Applications</h4>
-            <p class="text-left">
-            <a href="https://docs.google.com/a/berkeley.edu/forms/d/e/1FAIpQLSfBrZWMOYzvjgknm49Ul1_1sosL62yGMgykZSE0kWgxeLcQZg/viewform?c=0&w=1" target="_blank">Officer Application</a>
-            <br>
-            Intern Guidelines (<a href="{{ url_for('static', filename='files/tasa_intern_guidelines.pdf') }}" target="_blank">pdf</a>)</p>
-
-              <h4 class="faded">Newsletters</h4>
-              <p class="text-left">
-              Check back soon!</p>
-
+            <ul>
+            {% for file in files %}
+              <li>
+                <p class="file-text">
+                  <a href="{{file.file_url}}">{{file.name}}</a>
+                </p>
+              </li>
+            {% endfor %}
+            </ul>
           </div>
         </div>
         </div>

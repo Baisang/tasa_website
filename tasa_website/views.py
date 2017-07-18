@@ -283,13 +283,15 @@ def add_file():
     flash('New file successfully posted')
     return redirect(url_for('admin_panel'))
 
+@app.route('/files', methods=['GET'])
+def files():
+    query = 'select * from files'
+    files = query_db(query)
+    return render_template('files.html', files=files)
+
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
-
-@app.route('/files', methods=['GET'])
-def files():
-    return render_template('files.html')
 
 @app.route('/donate', methods=['GET'])
 def donate():

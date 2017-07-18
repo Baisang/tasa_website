@@ -846,3 +846,7 @@ h3.event-subheader {
         height: 250px;
     }
 }
+
+p.file-text {
+	font-size: 1.5em;
+}
