@@ -89,7 +89,7 @@ def save_request_file(request, save_folder):
         # compress and resize the image
         img = Image.open(f)
         img.thumbnail(IMAGE_MAXSIZE)
-        img.save(f_path, format='JPEG', quality=85, optimize=True)
+        img.save(f_path, format='JPEG', quality=95, optimize=True, progressive=True)
     else:
         f.save(f_path)
     return f_url
