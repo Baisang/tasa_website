@@ -1,12 +1,14 @@
 # Helper functions and stuff
 import os
 import random
+import re
 import string
 import time
 
 import dateutil.parser
 from flask import abort
 from flask import session
+from PIL import Image
 from werkzeug.utils import secure_filename
 
 from . import ROOT
@@ -49,12 +51,10 @@ def convert_time(time_str):
     return time_str, unix_time
 
 def guess_image_extension(image):
-    image_type = image.info().get('Content-Type')
-    try:
-        image_format = img_formats[image_type]
-    except KeyError:
-        raise ValueError('Not a supported image format')
-    return image_format
+    image_type = image.content_type
+    if image_type in img_formats:
+        return img_formats[image_type]
+    return None
 
 def generate_random_filename(extension):
     file_name = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(8))
@@ -80,7 +80,15 @@ def save_request_file(request, save_folder):
     f = file_from_request(request)
     filename = secure_filename(f.filename)
     f_url, f_path = create_file_paths(save_folder, filename)
-    f.save(f_path)
+    if guess_image_extension(f) is not None:
+        # replace image extension in filename with jpg
+        f_path = re.sub(r'\.[a-zA-Z]*$', '.jpg', f_path)
+        f_url = re.sub(r'\.[a-zA-Z]*$', '.jpg', f_url)
+        # compress the image
+        img = Image.open(f)
+        img.save(f_path, format='JPEG', quality=85, optimize=True)
+    else:
+        f.save(f_path)
     return f_url
 
 def check_file_in_request(request):
