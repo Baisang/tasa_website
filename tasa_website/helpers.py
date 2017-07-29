@@ -34,6 +34,8 @@ POSITIONS = [
     'Webmaster Intern',
 ]
 
+IMAGE_MAXSIZE = (1024, 1024)
+
 img_formats = {
     'image/jpeg': 'JPEG',
     'image/png': 'PNG',
@@ -84,8 +86,9 @@ def save_request_file(request, save_folder):
         # replace image extension in filename with jpg
         f_path = re.sub(r'\.[a-zA-Z]*$', '.jpg', f_path)
         f_url = re.sub(r'\.[a-zA-Z]*$', '.jpg', f_url)
-        # compress the image
+        # compress and resize the image
         img = Image.open(f)
+        img.thumbnail(IMAGE_MAXSIZE)
         img.save(f_path, format='JPEG', quality=85, optimize=True)
     else:
         f.save(f_path)
