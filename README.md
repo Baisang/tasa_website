@@ -19,3 +19,17 @@ Here is how to set up a local version of the website on your own machine.
 4. Make a file called `config.yaml` at the same level and similar to the `config.yaml.template` file in `tasa_website/`. Put in an admin account username, password, secret key, and Facebook API token. These will only be active for your local running instance.
 5. `make run` to start everything locally. You should be able to view your site locally at `localhost:5000`
 
+## Using the site
+It's pretty easy to do regular updates etc. with the site.
+
+Login at `<site_url>/login` and you will get to the admin panel:
+
+![admin screenshot](https://i.fluffy.cc/DCQJbkv0z37nPJ8WLZtFqxqhD7Vk5HLw.png)
+
+Each one of these panes does exactly what you think it does!
+
+For some items e.g. 'View Officers' you can update or delete the officers in the database. Clicking on update opens a handy modal like this
+
+![update officer screenshot](https://i.fluffy.cc/vg6jw4sSnp94bFmBxhjQHWzkLmClNBNB.png)
+
+Have fun and don't forget to add your own cool features!
