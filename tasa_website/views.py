@@ -289,6 +289,14 @@ def files():
     files = query_db(query)
     return render_template('files.html', files=files)
 
+@app.route('/files/<int:file_id>', methods=['DELETE'])
+def delete_file(file_id):
+    auth.check_login()
+
+    query = 'delete from files where id = ?'
+    query_db(query, (file_id,))
+    return 'Deleted file'
+
 @app.route('/about', methods=['GET'])
 def about():
     return render_template('about.html')
