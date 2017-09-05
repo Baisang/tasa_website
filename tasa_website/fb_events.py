@@ -1,5 +1,8 @@
+import cStringIO
 import requests
 import urllib
+
+from PIL import Image
 
 from . import secrets
 
@@ -18,4 +21,7 @@ def get_cover_photo(event_id):
         'fields': 'cover',
     }).json()
     image_url = res['cover']['source']
-    return urllib.urlopen(image_url)
+    image_data =  urllib.urlopen(image_url)
+    image_file = cStringIO.StringIO(image_data.read())
+    image = Image.open(image_file)
+    return image

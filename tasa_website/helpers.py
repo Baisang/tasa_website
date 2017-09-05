@@ -53,7 +53,7 @@ def convert_time(time_str):
     return time_str, unix_time
 
 def guess_image_extension(image):
-    image_type = image.info().getheader('Content-Type')
+    image_type = image.content_type
     if image_type in img_formats:
         return img_formats[image_type]
     return None

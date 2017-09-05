@@ -1,4 +1,3 @@
-import cStringIO
 import json
 import os
 import random
@@ -16,7 +15,6 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
-from PIL import Image
 
 import auth
 import fb_events
@@ -77,14 +75,13 @@ def add_event():
         time_str, unix_time = helpers.convert_time(res['start_time'])
 
         # another GET to get the cover photo
-        image_data = fb_events.get_cover_photo(fb_event_id)
-        image_format = helpers.guess_image_extension(image_data)
+        image = fb_events.get_cover_photo(fb_event_id)
+        # just resave it as a jpg
+        image_ext = '.jpg'
 
-        image_file = cStringIO.StringIO(image_data.read())
-        image = Image.open(image_file)
-        file_name = helpers.generate_random_filename(image_format)
+        file_name = helpers.generate_random_filename(image_ext)
         image_url, image_path = helpers.create_file_paths(IMAGE_FOLDER, file_name)
-        image.save(image_path, format=image_format)
+        image.save(image_path, format='JPEG', quality=95, optimize=True, progressive=True)
 
         query = 'insert into events (title, time, location, link, image_url, unix_time)'\
                 'values (?, ?, ?, ?, ?, ?)'
