@@ -259,7 +259,7 @@
                   {% for event in events %}
                     <li>
                       {{ event.title }} &nbsp;
-                      <a href="javascript:void(0);" onclick="deleteEvent({{event.id}}, '{{event.title}}')">Delete</a>
+                      <a href="javascript:void(0);" onclick="deleteItem({{event.id}}, '{{event.title}}', '/events/')">Delete</a>
                     </li>
                   {% endfor %}
                   </ul>
@@ -280,7 +280,7 @@
                           data-name="{{officer.name}}" data-id="{{officer.id}}" data-year="{{officer.year}}"
                           data-major="{{officer.major}}" data-position={{officer.position}} data-quote="{{officer.quote}}"
                           data-description="{{officer.description}}">Update</a>&nbsp;
-                      <a href="javascript:void(0);" onclick="deleteOfficer({{officer.id}}, '{{officer.name}}')">Delete</a>
+                      <a href="javascript:void(0);" onclick="deleteItem({{officer.id}}, '{{officer.name}}', '/officers/')">Delete</a>
                     </li>
                   {% endfor %}
                   </ul>
@@ -300,7 +300,7 @@
                       <a href="javascript:void(0);" data-toggle="modal" data-target="#familyModal"
                           data-name="{{family.family_name}}" data-id="{{family.id}}" data-familyhead1="{{family.family_head1}}"
                           data-familyhead2="{{family.family_head2}}" data-description="{{family.description}}">Update</a>
-                      <a href="javascript:void(0);" onclick="deleteFamily({{family.id}}, '{{family.family_name}}')">Delete</a>
+                      <a href="javascript:void(0);" onclick="deleteItem({{family.id}}, '{{family.family_name}}', '/families/')">Delete</a>
                     </li>
                   {% endfor %}
                   </ul>
@@ -337,7 +337,7 @@
                   {% for file in files %}
                     <li>
                       {{ file.name }} &nbsp;
-                      <a href="javascript:void(0);" onclick="deleteFile({{file.id}}, '{{file.name}}')">Delete</a>
+                      <a href="javascript:void(0);" onclick="deleteItem({{file.id}}, '{{file.name}}', '/files/')">Delete</a>
                     </li>
                   {% endfor %}
                   </ul>
@@ -353,37 +353,10 @@
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 <script type="text/javascript">
-function deleteOfficer(officer_id, officer_name) {
-  if (confirm('Are you sure you want to delete ' + officer_name + '?')) {
+function deleteItem(id, name, endpoint) {
+  if (confirm('Are you sure you want to delete ' + name + '?')) {
     $.ajax({
-      url: '/officers/' + officer_id,
-      type: 'DELETE',
-    });
-    location.reload();
-  }
-}
-function deleteFamily(family_id, family_name) {
-  if (confirm('Are you sure you want to delete ' + family_name + '?')) {
-    $.ajax({
-      url: '/families/' + family_id,
-      type: 'DELETE',
-    });
-    location.reload();
-  }
-}
-function deleteEvent(event_id, event_title) {
-  if (confirm('Are you sure you want to delete ' + event_title + '?')) {
-    $.ajax({
-      url: '/events/' + event_id,
-      type: 'DELETE',
-    });
-    location.reload();
-  }
-}
-function deleteFile(file_id, file_name) {
-  if (confirm('Are you sure you want to delete ' + file_name + '?')) {
-    $.ajax({
-      url: '/files/' + file_id,
+      url: endpoint + id,
       type: 'DELETE',
     });
     location.reload();
