@@ -7,3 +7,4 @@ print 'Enter yes to confirm'
 res = str(raw_input())
 if res == 'yes':
     init_db()
+    print 'Database generated'
