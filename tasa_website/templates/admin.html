@@ -140,6 +140,7 @@
           <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#viewOfficers">View Officers</a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#viewFamilies">View Families</a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#addFile">Add File</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#viewFiles">View Files</a></li>
         </ul>
 
         <div class="tab-content">
@@ -312,17 +313,34 @@
               <div class="col"></div>
               <div class="col">
                 <h2>Add a File</h2>
-                <form action="{{ url_for('add_file') }}" method=post enctype=multipart/form-data>
+                <form action="{{ url_for('add_file') }}" method=post>
                     <div class="form-group">
                       <label for="fileName">File Name</label>
                       <input name=name type="text" class="form-control" id="fileName">
                     </div>
                     <div class="form-group">
-                      <label for="file">File</label>
-                      <input class="form-control-file" type=file name=file id="file">
+                      <label for="file">Link to file</label>
+                      <input name="file_url" type="text" class="form-control" id="file">
                     </div>
                     <button class="btn btn-primary" type=submit>Add File</button>
                 </form>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+          <div class="tab-pane" id="viewFiles" role="tabpanel">
+            <div class="row">
+              <div class="col"></div>
+              <div class="col">
+                <h2>All Files in DB:</h2>
+                  <ul>
+                  {% for file in files %}
+                    <li>
+                      {{ file.name }} &nbsp;
+                      <a href="javascript:void(0);" onclick="deleteFile({{file.id}}, '{{file.name}}')">Delete</a>
+                    </li>
+                  {% endfor %}
+                  </ul>
               </div>
               <div class="col"></div>
             </div>
@@ -357,6 +375,15 @@ function deleteEvent(event_id, event_title) {
   if (confirm('Are you sure you want to delete ' + event_title + '?')) {
     $.ajax({
       url: '/events/' + event_id,
+      type: 'DELETE',
+    });
+    location.reload();
+  }
+}
+function deleteFile(file_id, file_name) {
+  if (confirm('Are you sure you want to delete ' + file_name + '?')) {
+    $.ajax({
+      url: '/files/' + file_id,
       type: 'DELETE',
     });
     location.reload();

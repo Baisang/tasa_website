@@ -107,7 +107,8 @@ def admin_panel():
     events = query_db('select * from events order by unix_time desc')
     officers = query_db('select * from officers order by id')
     families = query_db('select * from families order by id')
-    return render_template('admin.html', events=events, officers=officers, families=families)
+    files = query_db('select * from files order by id')
+    return render_template('admin.html', events=events, officers=officers, families=families, files=files)
 
 @app.route('/officers', methods=['GET'])
 def officer_list():
@@ -264,15 +265,8 @@ def families():
 def add_file():
     auth.check_login()
 
-    try:
-        f = helpers.file_from_request(request)
-    except ValueError as e:
-        flash('Exception: ' + str(e))
-        return redirect(url_for('admin_panel'))
-
-    file_url = helpers.save_request_file(request, FILES_FOLDER)
-
     name = request.form['name']
+    file_url = request.form['file_url']
 
     query = 'insert into files (name, file_url)'\
             'values (?, ?)'
