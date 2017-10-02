@@ -70,7 +70,7 @@ def add_event():
 
         res = fb_events.get_event(fb_event_id)
         title = res['name']
-        location = res['place']['name']
+        location = res.get('place', {'name': ''})['name']
 
         time_str, unix_time = helpers.convert_time(res['start_time'])
 
