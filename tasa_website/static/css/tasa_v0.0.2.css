@@ -400,14 +400,14 @@ html {
 
 .family-splash {
 	background-image:
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4)), url("../images/families.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.4)), url("../images/berkeleyproj.jpg");
 	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.4)
 		),
-	url("../images/families.jpg");
+	url("../images/berkeleyproj.jpg");
 	height: 33em;
 	margin-top: -1.2em;
 	background-size: cover;
@@ -427,7 +427,7 @@ html {
 }
 
 .eventSplash {
-	background-image: url("../images/events.jpg");
+	background-image: url("../images/bobalympics.jpg");
 	font-family: 'Yantramanav', sans-serif;
 	display: block;
 	background-position: 0% 30%;
@@ -439,14 +439,14 @@ html {
 
 .darken-event {
 	background-image:
-	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("../images/events.jpg");
+	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3)), url("../images/bobalympics.jpg");
 	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.3)
 		),
-	url("../images/events.jpg");
+	url("../images/bobalympics.jpg");
 }
 
 
@@ -501,14 +501,14 @@ h3.event-subheader {
 	height: 33em;
 	width: 100%;
 	background-image:
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/cabinetspring2017.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.2)), url("../images/cabinetf17.jpg");
 	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/cabinetspring2017.jpg");
+	url("../images/cabinetf17.jpg");
 }
 
 .files-splash {
