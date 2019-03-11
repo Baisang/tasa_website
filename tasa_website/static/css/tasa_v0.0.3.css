@@ -28,14 +28,14 @@ html {
 
 .secondSplash {
 	background-image:
-	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("../images/secondSplash.jpg");
+	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("../images/happyaustine.jpg");
 	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.5)
 		),
-	url("../images/secondSplash.jpg");
+	url("../images/happyaustine.jpg");
 	font-family: 'Yantramanav', sans-serif;
 	background-position: 47% 35%;
 	display: block;
@@ -45,14 +45,14 @@ html {
 
 .thirdSplash {
 	background-image:
-	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("../images/fall14cabinet.jpg");
+	-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)), url("../images/happyisabelle.jpg");
 	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0),
 		rgba(0, 0, 0, 0.2)
 		),
-	url("../images/fall14cabinet.jpg");
+	url("../images/happyisabelle.jpg");
 	font-family: 'Yantramanav', sans-serif;
 	-webkit-background-position: 47% 35%;
 	background-position: 47% 35%;
@@ -381,14 +381,14 @@ html {
 
 .about-splash {
 	background-image:
-	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url("../images/scavengerhunt.jpg");
+	-webkit-linear-gradient(top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.1)), url("../images/cabinetsp19.jpg");
 	background-image:
 	linear-gradient(
 		to bottom,
 		rgba(0, 0, 0, 0.0),
 		rgba(0, 0, 0, 0.1)
 		),
-	url("../images/scavengerhunt.jpg");
+	url("../images/cabinetsp19.jpg");
 	height: 33em;
 	background-size: cover;
 	width: 100%;
